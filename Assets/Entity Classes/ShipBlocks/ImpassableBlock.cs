@@ -2,18 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UIManager : MonoBehaviour {
-
-	private static UIManager instance;
-
+public class ImpassableBlock : ShipBlock {
 
 	// Use this for initialization
-	void Awake () {
-		if (instance == null) {
-			instance = this;
-		} else {
-			Destroy (gameObject);
-		}
+	void Start () {
+		
 	}
 	
 	// Update is called once per frame
