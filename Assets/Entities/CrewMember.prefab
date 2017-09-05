@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4547188473992604}
   - component: {fileID: 212326334277266640}
+  - component: {fileID: 114705827827015698}
   m_Layer: 0
   m_Name: CrewMember
   m_TagString: Untagged
@@ -33,13 +34,26 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1136255832511332}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.12, y: 0.47, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -7, y: -2.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114705827827015698
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1136255832511332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9c114c97e33e7a45a9e8ea0375f2767, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
+  doingJob: 0
 --- !u!212 &212326334277266640
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -72,7 +86,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 9f344a449dbe9724eba956031637fcfe, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 730f8856bd261b742b0aed4c20f27949, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
