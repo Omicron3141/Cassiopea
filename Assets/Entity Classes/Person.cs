@@ -28,6 +28,7 @@ public class Person: Entity  {
 
 			} else {
 				float Xdirection = (currentJob.Location.x - transform.position.x)/Mathf.Abs(currentJob.Location.x - transform.position.x);
+				GetComponent<SpriteRenderer> ().flipX = (Xdirection > 0);
 				transform.Translate (Xdirection * speed * Time.deltaTime, 0f, 0f);
 			}
 		}
