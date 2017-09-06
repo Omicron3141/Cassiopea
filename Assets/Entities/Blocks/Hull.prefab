@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4558414958895192}
   - component: {fileID: 212065235267970026}
+  - component: {fileID: 114444743855583114}
   m_Layer: 0
   m_Name: Hull
   m_TagString: Untagged
@@ -33,13 +34,26 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1555387391780092}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -6, y: -4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114444743855583114
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1555387391780092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff3a30b0e7f76c94a8e8e9ac44190fb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BlockType: 0
+  passable: 0
 --- !u!212 &212065235267970026
 SpriteRenderer:
   m_ObjectHideFlags: 1
