@@ -16,7 +16,7 @@ public class Ship: SpaceObject  {
 		if (playerShip == null && isPlayerShip) {
 			playerShip = this;
 		}
-		map = new ShipMap (60, 30);
+		map = new ShipMap (70, 30);
 		ConstructShip ("TestShip");
 	}
 

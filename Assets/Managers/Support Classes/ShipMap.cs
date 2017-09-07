@@ -53,4 +53,32 @@ public class ShipMap{
 		}
 		return new Vector3 (x, y, pos.z);
 	}
+
+	public Queue<Vector3> pathfind(Vector3 startpos, Vector3 endpos) {
+		Queue<Vector3> path = new Queue<Vector3>();
+
+		Vector3 nearestLadderInDirectionOfTravel = nearestLadder (startpos, (int)(endpos.x - startpos.x));
+		Vector3 nearestLadderInOppositeDirectionOfTravel = nearestLadder (startpos, (int)(startpos.x - endpos.x));
+		Vector3 ladderbase;
+		if ((nearestLadderInDirectionOfTravel - startpos).magnitude < (nearestLadderInOppositeDirectionOfTravel - startpos).magnitude) {
+			ladderbase = nearestLadderInDirectionOfTravel;
+		} else {
+			ladderbase = nearestLadderInOppositeDirectionOfTravel;
+		}
+		path.Enqueue (ladderbase);
+		Vector3 laddertop = new Vector3 (ladderbase.x, endpos.y, ladderbase.z);
+		path.Enqueue (laddertop);
+		path.Enqueue (endpos);
+		return path;
+
+	}
+
+	private Vector3 nearestLadder(Vector3 startpos, int direction) {
+		int x = (int)startpos.x;
+		int y = (int)startpos.y;
+		while ((thingAt (x, y) != ladder) && (x < width) && (x>0)) {
+			x += direction / Mathf.Abs (direction);
+		}
+		return new Vector3 (x*1f, y*1f, startpos.z);
+	}
 }
