@@ -9,57 +9,57 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1958146093525430}
+  m_RootGameObject: {fileID: 1498470630803526}
   m_IsPrefabParent: 1
---- !u!1 &1958146093525430
+--- !u!1 &1498470630803526
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4669922223205014}
-  - component: {fileID: 212541395072303348}
-  - component: {fileID: 114845947413775874}
+  - component: {fileID: 4396125710380002}
+  - component: {fileID: 212229703779228362}
+  - component: {fileID: 114251158296835890}
   m_Layer: 0
-  m_Name: HullWedge
+  m_Name: HullWedgeTL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4669922223205014
+--- !u!4 &4396125710380002
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1958146093525430}
+  m_GameObject: {fileID: 1498470630803526}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 14.835489, y: 0.69103265, z: 0}
+  m_LocalPosition: {x: 0.3926592, y: -7.8769855, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114845947413775874
+--- !u!114 &114251158296835890
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1958146093525430}
+  m_GameObject: {fileID: 1498470630803526}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ff3a30b0e7f76c94a8e8e9ac44190fb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BlockType: 1
+  BlockType: 3
   passable: 0
---- !u!212 &212541395072303348
+--- !u!212 &212229703779228362
 SpriteRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1958146093525430}
+  m_GameObject: {fileID: 1498470630803526}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -88,10 +88,10 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: d9cc11a321c6c464f9b878d538083435, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
+  m_FlipX: 1
+  m_FlipY: 1
   m_DrawMode: 0
-  m_Size: {x: 4, y: 4}
+  m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

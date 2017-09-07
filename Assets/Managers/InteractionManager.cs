@@ -23,11 +23,16 @@ public class InteractionManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetMouseButtonUp(0)) {
+		if (Input.GetMouseButtonUp (0)) {
 			Vector3 point = Camera.main.ScreenToWorldPoint (Input.mousePosition);
-			Job j = new Job ();
-			j.Location = new Vector3( Mathf.Round (point.x), -2.5f, 0f);
-			crewManager.addNewJob (j);
+			Vector3 loc = new Vector3 (Mathf.Round (point.x), Mathf.Round (point.y), 0f);
+			if (Ship.playerShip.map.isWithinBounds (loc)) {
+				if (Ship.playerShip.map.isPassible ((int)loc.x, (int)loc.y)) {
+					Job j = new Job ();
+					j.Location = Ship.playerShip.map.onFloor (loc);
+					crewManager.addNewJob (j);
+				}
+			}
 		}
 	}
 }

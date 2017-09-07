@@ -11,10 +11,12 @@ public class Person: Entity  {
 	private bool DoingJob{ get{ return doingJob; } }
 
 	private CrewManager manager;
+	SpriteRenderer Body;
 
 	void Start () {
 		manager = CrewManager.instance;
 		manager.AddCrewMember (this);
+		Body = transform.Find ("Body").GetComponent<SpriteRenderer>();
 	}
 
 
@@ -28,7 +30,7 @@ public class Person: Entity  {
 
 			} else {
 				float Xdirection = (currentJob.Location.x - transform.position.x)/Mathf.Abs(currentJob.Location.x - transform.position.x);
-				GetComponent<SpriteRenderer> ().flipX = (Xdirection > 0);
+				Body.flipX = (Xdirection > 0);
 				transform.Translate (Xdirection * speed * Time.deltaTime, 0f, 0f);
 			}
 		}
@@ -36,6 +38,7 @@ public class Person: Entity  {
 
 	public void assignJob(Job job) {
 		currentJob = job;
+		currentJob.Location.z = transform.position.z;
 		doingJob = true;
 	}
 }
