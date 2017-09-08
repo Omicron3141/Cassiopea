@@ -27,7 +27,7 @@ public class InteractionManager : MonoBehaviour {
 			Vector3 point = Camera.main.ScreenToWorldPoint (Input.mousePosition);
 			Vector3 loc = new Vector3 (Mathf.Round (point.x), Mathf.Round (point.y), 0f);
 			if (Ship.playerShip.map.isWithinBounds (loc)) {
-				if (Ship.playerShip.map.isPassible ((int)loc.x, (int)loc.y)) {
+				if ((Ship.playerShip.map.isInShip ((int)loc.x, (int)loc.y)) && (Ship.playerShip.map.isPassible ((int)loc.x, (int)loc.y))) {
 					Job j = new Job ();
 					j.Location = Ship.playerShip.map.onFloor (loc);
 					crewManager.addNewJob (j);
