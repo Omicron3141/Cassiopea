@@ -23,7 +23,7 @@ public class InteractionManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetMouseButtonUp (0)) {
+		if (Input.GetMouseButtonUp (1)) {
 			Vector3 point = Camera.main.ScreenToWorldPoint (Input.mousePosition);
 			Vector3 loc = new Vector3 (Mathf.Round (point.x), Mathf.Round (point.y), 0f);
 			if (Ship.playerShip.map.isWithinBounds (loc)) {
