@@ -20,7 +20,7 @@ public class Console : Entity {
 			Job j = new Job();
 			j.Location = new Vector2(transform.position.x, transform.position.y) + interactionSpot;
 			j.duration = maintenanceDuraction;
-			j.desc = "Perform maintenance on " + humanReadableName;
+			j.desc = "Perform maintenance on " + humanReadableName + " at";
 			j.onComplete = MaintenanceComplete;
 			crewManager.addNewJob(j);
 			broken = true;
