@@ -41,14 +41,14 @@ public class Ship: SpaceObject  {
 					if (i >= 0) {
 						if (i == ladderID) {
 							map.setThing (x, y, ShipMap.ladder);
-						} else if (Blocks [i].GetComponent<Block> ().passable) {
+						} else if (Blocks [i].GetComponent<ShipBlock> ().passable) {
 							map.setThing (x, y, ShipMap.passable);
 						} else {
 							map.setThing (x, y, ShipMap.impassible);
 						}
 						GameObject block = Instantiate (Blocks [i]);
 						block.transform.SetParent (transform);
-						block.transform.position = new Vector3 (x * 1f, y * 1f, 0f);
+						block.transform.position = new Vector3 (x * 1f, y * 1f, -1f*0.00001f*i);
 					}
 				}
 				x++;

@@ -12,7 +12,7 @@ public class CameraController : MonoBehaviour {
     public float maxzoom = 7;
 
     public float xBound = 40;
-    public float zBound = 40;
+    public float yBound = 40;
 
     public float edgeBoundary = 30;
 
@@ -65,13 +65,13 @@ public class CameraController : MonoBehaviour {
             this.transform.Translate(new Vector3((-xBound - transform.position.x), 0f, 0f), Space.World);
         }
 
-        if (transform.position.z > zBound)
+        if (transform.position.y > yBound)
         {
-			this.transform.Translate(new Vector3(0f, (zBound - transform.position.z), 0f), Space.World);
+			this.transform.Translate(new Vector3(0f, (yBound - transform.position.y), 0f), Space.World);
         }
-        else if (transform.position.z < -zBound)
+        else if (transform.position.y < -yBound)
         {
-			this.transform.Translate(new Vector3(0f, (-zBound - transform.position.z), 0f), Space.World);
+			this.transform.Translate(new Vector3(0f, (-yBound - transform.position.y), 0f), Space.World);
         }
 
     }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShipBlock: Block  {
-
+public class ShipBlock: Entity  {
+	public int id;
+	public bool passable = false;
 }

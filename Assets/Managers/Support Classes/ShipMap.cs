@@ -77,7 +77,7 @@ public class ShipMap{
 				// if we are right under our target, assume a direction of travel
 			}
 			Vector3 nearestLadderInDirectionOfTravel = nearestLadder (startpos, direction);
-			Vector3 nearestLadderInOppositeDirectionOfTravel = nearestLadder (startpos, direction);
+			Vector3 nearestLadderInOppositeDirectionOfTravel = nearestLadder (startpos, -1*direction);
 			Vector3 ladderbase;
 			if (nearestLadderInOppositeDirectionOfTravel == Vector3.zero) {
 				// If there is no ladder in the other direction
