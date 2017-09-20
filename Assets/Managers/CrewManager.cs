@@ -80,6 +80,7 @@ public class CrewManager: MonoBehaviour {
 			text += " Name: " + selectedCrew.crewName + "\n";
 			text += " Age: " + selectedCrew.age + "\n";
 			text += " Profession: " + selectedCrew.profession + "\n";
+			text += " Currently: " + selectedCrew.jobDesc() + "\n";
 		} 
 
 		else {

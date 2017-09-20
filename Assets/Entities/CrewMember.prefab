@@ -243,6 +243,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+  idleSpeed: 2
+  crewName: 
+  age: 
+  profession: 
 --- !u!212 &212086370944746508
 SpriteRenderer:
   m_ObjectHideFlags: 1

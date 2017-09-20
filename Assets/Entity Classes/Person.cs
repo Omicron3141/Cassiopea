@@ -8,6 +8,7 @@ public class Person: Entity  {
 	private bool selected = false;
 
 	public float speed;
+	public float idleSpeed;
 	public Job currentJob;
 	private Job CurrentJob{ get{ return currentJob; } }
 	private bool DoingJob{ get{ return state != IDLE; } }
@@ -35,11 +36,37 @@ public class Person: Entity  {
 		this.crewName = "John Smith";
 		this.profession = "Engineer";
 		this.age = "30";
+		target = Ship.playerShip.map.getNewWanderTarget (transform.position);
 	}
 
 
 	void Update () {
-		if (state == MOVINGTOJOB) {
+		if (state == IDLE) {
+			if (Mathf.Abs ((target - transform.position).magnitude) < speed * Time.deltaTime) {
+				transform.position = target;
+				target = Ship.playerShip.map.getNewWanderTarget (transform.position);
+			} else {
+				float Xdirection;
+				if (target.x == transform.position.x) {
+					Xdirection = 0;
+				} else {
+					Xdirection = (target.x - transform.position.x) / Mathf.Abs (target.x - transform.position.x);
+				}
+
+				float Ydirection;
+				if (target.y == transform.position.y) {
+					Ydirection = 0;
+				} else {
+					Ydirection = (target.y - transform.position.y) / Mathf.Abs (target.y - transform.position.y);
+				}
+				float facing = -1f;
+				if (Xdirection < 0) {
+					facing = 1f;
+				}
+				transform.localScale = new Vector3 (facing, 1f, 1f);
+				transform.Translate (Xdirection * idleSpeed * Time.deltaTime, Ydirection * idleSpeed * Time.deltaTime, 0f);
+			}
+		} else if (state == MOVINGTOJOB) {
 			if (Mathf.Abs ((target - transform.position).magnitude) < speed * Time.deltaTime) {
 				transform.position = target;
 				if (path.Count == 0) {
@@ -103,6 +130,18 @@ public class Person: Entity  {
 	public void setSelect (bool sel) {
 		selected = sel;
 		transform.Find ("Select").GetComponent<SpriteRenderer> ().enabled = sel;
+	}
+
+	public string jobDesc() {
+		if (state == IDLE) {
+			return "Idle";
+		} else if (state == MOVINGTOJOB) {
+			return "Moving to job:\n \"" + currentJob.Description() + "\"";
+		} else if (state == DOINGJOB) {
+			return "Doing job \n\"" + currentJob.Description() + "\"";
+		} else {
+			return "N/A";
+		}
 	}
 
 }

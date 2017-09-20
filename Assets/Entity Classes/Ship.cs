@@ -18,6 +18,7 @@ public class Ship: SpaceObject  {
 		}
 		map = new ShipMap (70, 30);
 		ConstructShip ("TestShip");
+		//map.printMap ();
 	}
 
 
@@ -36,19 +37,25 @@ public class Ship: SpaceObject  {
 			string[] columns = line.Split ("," [0]);
 			int x = 0;
 			foreach (string s in columns) {
-				if (s!=null){
+				if (s!=null && s!=""){
 					int i = Convert.ToInt32 (s);
 					if (i >= 0) {
-						if (i == ladderID) {
-							map.setThing (x, y, ShipMap.ladder);
-						} else if (Blocks [i].GetComponent<ShipBlock> ().passable) {
-							map.setThing (x, y, ShipMap.passable);
-						} else {
-							map.setThing (x, y, ShipMap.impassible);
+						GameObject block = Blocks [i];
+						Vector2 size = block.GetComponent<ShipBlock> ().size;
+						for (int ix = x; ix < x+size.x; ix++) {
+							for (int iy = y; iy < y+size.y; iy++) {
+								if (i == ladderID) {
+									map.setThing (ix, iy, ShipMap.ladder);
+								} else if (block.GetComponent<ShipBlock> ().passable) {
+									map.setThing (ix, iy, ShipMap.passable);
+								} else {
+									map.setThing (ix, iy, ShipMap.impassible);
+								}
+							}
 						}
-						GameObject block = Instantiate (Blocks [i]);
-						block.transform.SetParent (transform);
-						block.transform.position = new Vector3 (x * 1f, y * 1f, -1f*0.00001f*i);
+						GameObject thisBlock = Instantiate (block);
+						thisBlock.transform.SetParent (transform);
+						thisBlock.transform.position = new Vector3 (x * 1f, y * 1f, -1f*0.00001f*i);
 					}
 				}
 				x++;

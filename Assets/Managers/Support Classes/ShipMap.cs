@@ -23,7 +23,7 @@ public class ShipMap{
 	}
 
 	public int thingAt(int x, int y) {
-		if ((x < width) && (y < height)) {
+		if ((x < width) && (y < height) && (x>=0) && (y>=0)) {
 			return map [x, y];
 		} else {
 			//Debug.LogError ("Tried to access out-of-bounds map index at "+x+","+y);
@@ -31,7 +31,7 @@ public class ShipMap{
 		}
 	}
 	public void setThing(int x, int y, int thing) {
-		if ((x < width) && (y < height)) {
+		if ((x < width) && (y < height) && (x>=0) && (y>=0)) {
 			map [x, y] = thing;
 		} else {
 			Debug.LogError ("Tried to access out-of-bounds map index at "+x+","+y);
@@ -102,6 +102,20 @@ public class ShipMap{
 
 	}
 
+	public Vector3 getNewWanderTarget (Vector3 startpos) {
+		int startx = (int)startpos.x;
+		int starty = (int)startpos.y;
+		int direction = (int)(Mathf.Round (Random.value) * 2 - 1);
+		int distance = Random.Range (3, 4);
+		for (int i = 1; i < distance; i++) {
+			if (!isPassible (startx + direction * i, starty)) {
+				distance = i-1;
+			}
+		}
+		//Debug.Log (distance);
+		return new Vector3(startx + direction*distance, starty, startpos.z);
+	}
+
 	// Finds the length of a path (excluding vertical distance) from statpos to endpos passing through a particular ladder point
 	private float pathLength(Vector3 startpos, Vector3 ladderPos, Vector3 endpos) {
 		float dist = 0f;
@@ -122,5 +136,26 @@ public class ShipMap{
 			}
 		}
 		return Vector3.zero;
+	}
+
+
+	public void printMap() {
+		string map = "";
+		for (int y = height-1; y >= 0; y--) {
+			for (int x = 0; x < width; x++) {
+				int t = thingAt(x,y);
+				if (t == -1) {
+					map += "*";
+				}else if (t == passable) {
+					map += "~";
+				}else if (t == impassible) {
+					map += "#";
+				}else if (t == ladder) {
+					map += "=";
+				}
+			}
+			map += "\n";
+		}
+		Debug.Log(map);
 	}
 }
