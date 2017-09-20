@@ -1,4 +1,6 @@
-﻿using System;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 // The ship's oxygen supply is one of the resources that players of Cassiopeia need to keep track of.
 // The ship's oxygen supply is displayed as a percentage on a counter that will change color depending on how

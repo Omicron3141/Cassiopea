@@ -13,6 +13,10 @@ public class Person: Entity  {
 	private bool DoingJob{ get{ return state != IDLE; } }
 	private Queue<Vector3> path;
 	private Vector3 target;
+	public string crewName;
+	public string age;
+	public string profession;
+
 
 	private CrewManager manager;
 	SpriteRenderer Body;
@@ -28,6 +32,9 @@ public class Person: Entity  {
 		manager = CrewManager.instance;
 		manager.AddCrewMember (this);
 		Body = transform.Find ("Body").GetComponent<SpriteRenderer>();
+		this.crewName = "John Smith";
+		this.profession = "Engineer";
+		this.age = "30";
 	}
 
 

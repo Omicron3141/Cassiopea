@@ -16,6 +16,7 @@ public class CrewManager: MonoBehaviour {
 	public Person selectedCrew;
 
 	public Text jobsUI;
+	public Text traitsUI;
 
 	// Use this for initialization
 	void Awake () {
@@ -30,6 +31,7 @@ public class CrewManager: MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
 		if (UnassignedJobs.Count > 0 && UnassignedCrewMembers.Count > 0) {
 			Job currentJob = UnassignedJobs.Dequeue ();
 			UnassignedCrewMembers [0].assignJob (currentJob);
@@ -38,6 +40,8 @@ public class CrewManager: MonoBehaviour {
 			AssignedJobs.Add (currentJob);
 			updateJobsUI ();
 		}
+
+		updateTraitsUI ();
 
 	}
 
@@ -67,6 +71,22 @@ public class CrewManager: MonoBehaviour {
 			text += "   "+j.Description()+"\n";
 		}
 		jobsUI.text = text;
+	}
+
+	private void updateTraitsUI() {
+		string text = "";
+
+		if (selectedCrew != null) {
+			text += " Name: " + selectedCrew.crewName + "\n";
+			text += " Age: " + selectedCrew.age + "\n";
+			text += " Profession: " + selectedCrew.profession + "\n";
+		} 
+
+		else {
+			text += "No crew selected." + "\n";
+		}
+
+		traitsUI.text = text;
 	}
 
 }

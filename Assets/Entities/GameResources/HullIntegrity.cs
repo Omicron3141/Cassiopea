@@ -1,4 +1,6 @@
-﻿using System;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 // Hull Integrity represents the health of the ship. When hull integrity reaches zero, the ship has been destroyed.
 
