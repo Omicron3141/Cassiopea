@@ -6,12 +6,13 @@ using UnityEngine.UI;
 public class CrewManager: MonoBehaviour {
 
 	public static CrewManager instance;
+	public const int priorities = 3;
 
 	private List<Person> UnassignedCrewMembers = new List<Person> ();
 	private List<Person> AssignedCrewMembers = new List<Person> ();
 
-	private Queue<Job> UnassignedJobs = new Queue<Job> ();
-	private List<Job> AssignedJobs = new List<Job> ();
+	private List<Queue<Job>> UnassignedJobs = new List<Queue<Job>> ();
+	private List<List<Job>> AssignedJobs = new List<List<Job>> ();
 
 	public Person selectedCrew;
 
@@ -25,20 +26,45 @@ public class CrewManager: MonoBehaviour {
 		} else {
 			Destroy (gameObject);
 		}
+		for (int i = 0; i < priorities; i++) {
+			UnassignedJobs.Add(new Queue<Job> ());
+			AssignedJobs.Add(new List<Job> ());
+		}
 
 	}
 
 	
 	// Update is called once per frame
 	void Update () {
+		for (int priority = 0; priority < priorities; priority++) {
+			if (UnassignedJobs [priority].Count > 0) {
 
-		if (UnassignedJobs.Count > 0 && UnassignedCrewMembers.Count > 0) {
-			Job currentJob = UnassignedJobs.Dequeue ();
-			UnassignedCrewMembers [0].assignJob (currentJob);
-			AssignedCrewMembers.Add (UnassignedCrewMembers [0]);
-			UnassignedCrewMembers.RemoveAt (0);
-			AssignedJobs.Add (currentJob);
-			updateJobsUI ();
+				if (UnassignedCrewMembers.Count > 0) {
+					Job currentJob = UnassignedJobs [priority].Dequeue ();
+					UnassignedCrewMembers [0].assignJob (currentJob);
+					currentJob.assignedCrew = UnassignedCrewMembers [0];
+					AssignedCrewMembers.Add (UnassignedCrewMembers [0]);
+					UnassignedCrewMembers.RemoveAt (0);
+					AssignedJobs[priority].Add (currentJob);
+					updateJobsUI ();
+				} else if (priority < priorities-1) {
+					// if this is not the lowest-priority list, that is, if there are lower priority lists.
+					for (int priorityToStealFrom = priorities - 1; priorityToStealFrom > priority; priorityToStealFrom--) {
+						if (AssignedJobs [priorityToStealFrom].Count > 0) {
+							Job oldJob = AssignedJobs [priorityToStealFrom] [0];
+							AssignedJobs [priorityToStealFrom].RemoveAt (0);
+							Person p = oldJob.assignedCrew;
+							oldJob.assignedCrew = null;
+							Job newJob = UnassignedJobs [priority].Dequeue ();
+							p.assignJob (newJob);
+							newJob.assignedCrew = p;
+							AssignedJobs[priority].Add (newJob);
+							UnassignedJobs [priorityToStealFrom].Enqueue (oldJob);
+							updateJobsUI ();
+						}
+					}
+				}
+			}
 		}
 
 		updateTraitsUI ();
@@ -51,24 +77,26 @@ public class CrewManager: MonoBehaviour {
 
 
 	public void UnassignJob(Person p, Job j){
-		AssignedJobs.Remove(j);
+		AssignedJobs[j.priority].Remove(j);
 		AssignedCrewMembers.Remove (p);
 		UnassignedCrewMembers.Add (p);
 		updateJobsUI ();
 	}
 
 	public void addNewJob(Job j){
-		UnassignedJobs.Enqueue(j);
+		UnassignedJobs[j.priority].Enqueue(j);
 		updateJobsUI ();
 	}
 
 	private void updateJobsUI() {
 		string text = "";
-		foreach (Job j in AssignedJobs) {
-			text += " * "+j.Description()+"\n";
-		}
-		foreach (Job j in UnassignedJobs) {
-			text += "   "+j.Description()+"\n";
+		for (int i = 0; i < priorities; i++) {
+			foreach (Job j in AssignedJobs[i]) {
+				text += " * " + j.Description () + "\n";
+			}
+			foreach (Job j in UnassignedJobs[i]) {
+				text += "   " + j.Description () + "\n";
+			}
 		}
 		jobsUI.text = text;
 	}

@@ -39,12 +39,13 @@ public class InteractionManager : MonoBehaviour {
 			
 		} else if (Input.GetMouseButtonUp (1)) {
 			Vector3 point = Camera.main.ScreenToWorldPoint (Input.mousePosition);
-			Vector3 loc = new Vector3 (Mathf.Round (point.x), Mathf.Round (point.y), 0f);
+			Vector3 loc = new Vector3 (Mathf.Round (point.x), Mathf.Round (point.y), 0f) - Ship.playerShip.transform.position;
 			if (Ship.playerShip.map.isWithinBounds (loc)) {
 				if ((Ship.playerShip.map.isInShip ((int)loc.x, (int)loc.y)) && (Ship.playerShip.map.isPassible ((int)loc.x, (int)loc.y))) {
 					Job j = new Job ();
 					j.Location = Ship.playerShip.map.onFloor (loc);
 					j.desc = "Manual move to";
+					j.priority = 1;
 					crewManager.addNewJob (j);
 				}
 			}

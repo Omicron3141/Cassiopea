@@ -8,9 +8,12 @@ public class Job  {
 	private static int highestID = 0;
 
 	public int Id;
+	public int priority = 2;
 	public Vector3 Location;
 	public float duration;
+	public bool permenant = false;
 	public string desc;
+	public Person assignedCrew;
 	public Action onComplete;
 	bool assigned = false;
 

@@ -36,28 +36,28 @@ public class Person: Entity  {
 		this.crewName = "John Smith";
 		this.profession = "Engineer";
 		this.age = "30";
-		target = Ship.playerShip.map.getNewWanderTarget (transform.position);
+		target = Ship.playerShip.map.getNewWanderTarget (transform.localPosition);
 	}
 
 
 	void Update () {
 		if (state == IDLE) {
-			if (Mathf.Abs ((target - transform.position).magnitude) < speed * Time.deltaTime) {
-				transform.position = target;
-				target = Ship.playerShip.map.getNewWanderTarget (transform.position);
+			if (Mathf.Abs ((target - transform.localPosition).magnitude) < speed * Time.deltaTime) {
+				transform.localPosition = target;
+				target = Ship.playerShip.map.getNewWanderTarget (transform.localPosition);
 			} else {
 				float Xdirection;
-				if (target.x == transform.position.x) {
+				if (target.x == transform.localPosition.x) {
 					Xdirection = 0;
 				} else {
-					Xdirection = (target.x - transform.position.x) / Mathf.Abs (target.x - transform.position.x);
+					Xdirection = (target.x - transform.localPosition.x) / Mathf.Abs (target.x - transform.localPosition.x);
 				}
 
 				float Ydirection;
-				if (target.y == transform.position.y) {
+				if (target.y == transform.localPosition.y) {
 					Ydirection = 0;
 				} else {
-					Ydirection = (target.y - transform.position.y) / Mathf.Abs (target.y - transform.position.y);
+					Ydirection = (target.y - transform.localPosition.y) / Mathf.Abs (target.y - transform.localPosition.y);
 				}
 				float facing = -1f;
 				if (Xdirection < 0) {
@@ -67,10 +67,10 @@ public class Person: Entity  {
 				transform.Translate (Xdirection * idleSpeed * Time.deltaTime, Ydirection * idleSpeed * Time.deltaTime, 0f);
 			}
 		} else if (state == MOVINGTOJOB) {
-			if (Mathf.Abs ((target - transform.position).magnitude) < speed * Time.deltaTime) {
-				transform.position = target;
+			if (Mathf.Abs ((target - transform.localPosition).magnitude) < speed * Time.deltaTime) {
+				transform.localPosition = target;
 				if (path.Count == 0) {
-					if (currentJob.duration > 0) {
+					if (currentJob.duration > 0 || currentJob.permenant) {
 						transform.Find ("Hands").gameObject.SetActive (true);
 					}
 					state = DOINGJOB;
@@ -81,17 +81,17 @@ public class Person: Entity  {
 
 			} else {
 				float Xdirection;
-				if (target.x == transform.position.x) {
+				if (target.x == transform.localPosition.x) {
 					Xdirection = 0;
 				} else {
-					Xdirection = (target.x - transform.position.x) / Mathf.Abs (target.x - transform.position.x);
+					Xdirection = (target.x - transform.localPosition.x) / Mathf.Abs (target.x - transform.localPosition.x);
 				}
 
 				float Ydirection;
-				if (target.y == transform.position.y) {
+				if (target.y == transform.localPosition.y) {
 					Ydirection = 0;
 				} else {
-					Ydirection = (target.y - transform.position.y) / Mathf.Abs (target.y - transform.position.y);
+					Ydirection = (target.y - transform.localPosition.y) / Mathf.Abs (target.y - transform.localPosition.y);
 				}
 				float facing = -1f;
 				if (Xdirection < 0) {
@@ -101,26 +101,30 @@ public class Person: Entity  {
 				transform.Translate (Xdirection * speed * Time.deltaTime, Ydirection * speed * Time.deltaTime, 0f);
 			}
 		} else if (state == DOINGJOB) {
-			currentJob.duration -= Time.deltaTime;
-			if (currentJob.duration < 0) {
-				manager.UnassignJob (this, currentJob);
-				if (currentJob.onComplete != null) {
-					currentJob.onComplete.Invoke ();
-				}
-				currentJob = null;
-				state = IDLE;
-				transform.Find ("Hands").gameObject.SetActive (false);
+			if (!currentJob.permenant) {
+				currentJob.duration -= Time.deltaTime;
+				if (currentJob.duration < 0) {
+					manager.UnassignJob (this, currentJob);
+					if (currentJob.onComplete != null) {
+						currentJob.onComplete.Invoke ();
+					}
+					currentJob = null;
+					state = IDLE;
+					transform.Find ("Hands").gameObject.SetActive (false);
 
+				}
 			}
 		}
 	}
 
 	public void assignJob(Job job) {
 		currentJob = job;
-		currentJob.Location.z = transform.position.z;
-		path = Ship.playerShip.map.pathfind (transform.position, currentJob.Location);
+		currentJob.Location.z = transform.localPosition.z;
+		path = Ship.playerShip.map.pathfind (transform.localPosition, currentJob.Location);
 		target = path.Dequeue ();
 		state = MOVINGTOJOB;
+		transform.Find ("Hands").gameObject.SetActive (false);
+
 	}
 
 	public bool getSelected() {

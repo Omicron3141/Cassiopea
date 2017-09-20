@@ -116,7 +116,9 @@ MonoBehaviour:
   maintenanceChance: 0.001
   maintenanceDuraction: 4
   humanReadableName: engine
+  maintenancePriority: 0
   broken: 0
+  mannable: 0
 --- !u!198 &198072835452106578
 ParticleSystem:
   m_ObjectHideFlags: 1

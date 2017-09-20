@@ -55,7 +55,7 @@ public class Ship: SpaceObject  {
 						}
 						GameObject thisBlock = Instantiate (block);
 						thisBlock.transform.SetParent (transform);
-						thisBlock.transform.position = new Vector3 (x * 1f, y * 1f, -1f*0.00001f*i);
+						thisBlock.transform.localPosition = new Vector3 (x * 1f, y * 1f, -1f*0.00001f*i);
 					}
 				}
 				x++;
