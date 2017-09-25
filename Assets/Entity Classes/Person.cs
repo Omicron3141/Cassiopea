@@ -17,7 +17,8 @@ public class Person: Entity  {
 	public string crewName;
 	public string age;
 	public string profession;
-
+	public List<string> firstNames = new List<string>();
+	public List<string> lastNames = new List<string> ();
 
 	private CrewManager manager;
 	SpriteRenderer Body;
@@ -33,7 +34,14 @@ public class Person: Entity  {
 		manager = CrewManager.instance;
 		manager.AddCrewMember (this);
 		Body = transform.Find ("Body").GetComponent<SpriteRenderer>();
-		this.crewName = "John Smith";
+		string currentLine; // For looping through the first names.
+		System.IO.StreamReader listOfFirstNames = new System.IO.StreamReader("first_names.txt");
+		while ((currentLine = listOfFirstNames.ReadLine ()) != null) {
+			firstNames.Add(currentLine);
+		}
+		int randomFirstIndex = UnityEngine.Random.Range (0, firstNames.Count);
+
+		this.crewName = firstNames[randomFirstIndex];
 		this.profession = "Engineer";
 		this.age = "30";
 		target = Ship.playerShip.map.getNewWanderTarget (transform.localPosition);
