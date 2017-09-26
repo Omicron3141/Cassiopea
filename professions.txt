@@ -1,0 +1,12 @@
+General Engineer
+Pilot
+Marine
+Computer Scientist
+Software Engineer
+Weapons Specialist
+Security Officer
+Navigation Officer
+Captain
+Technician
+Electrical Engineer
+Mechanical Engineer

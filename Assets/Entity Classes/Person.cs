@@ -19,6 +19,7 @@ public class Person: Entity  {
 	public string profession;
 	public List<string> firstNames = new List<string>();
 	public List<string> lastNames = new List<string> ();
+	public List<string> professions = new List<string> ();
 
 	private CrewManager manager;
 	SpriteRenderer Body;
@@ -34,16 +35,37 @@ public class Person: Entity  {
 		manager = CrewManager.instance;
 		manager.AddCrewMember (this);
 		Body = transform.Find ("Body").GetComponent<SpriteRenderer>();
+
 		string currentLine; // For looping through the first names.
 		System.IO.StreamReader listOfFirstNames = new System.IO.StreamReader("first_names.txt");
+
 		while ((currentLine = listOfFirstNames.ReadLine ()) != null) {
 			firstNames.Add(currentLine);
 		}
+
 		int randomFirstIndex = UnityEngine.Random.Range (0, firstNames.Count);
 
-		this.crewName = firstNames[randomFirstIndex];
-		this.profession = "Engineer";
-		this.age = "30";
+		string nextCurrentLine; // For looping through the last names.
+		System.IO.StreamReader listOfLastNames = new System.IO.StreamReader("last_names.txt");
+
+		while ((nextCurrentLine = listOfLastNames.ReadLine ()) != null) {
+			lastNames.Add(nextCurrentLine);
+		}
+
+		int randomLastIndex = UnityEngine.Random.Range (0, lastNames.Count);
+
+		string profCurrentLine; // For looping through the professions.
+		System.IO.StreamReader listOfProfessions = new System.IO.StreamReader("professions.txt");
+
+		while ((profCurrentLine = listOfProfessions.ReadLine ()) != null) {
+			professions.Add(profCurrentLine);
+		}
+
+		int randomProfIndex = UnityEngine.Random.Range (0, professions.Count);
+
+		this.crewName = firstNames[randomFirstIndex] + " " + lastNames[randomLastIndex];
+		this.profession = professions [randomProfIndex];
+		this.age = UnityEngine.Random.Range (25, 70).ToString ();
 		target = Ship.playerShip.map.getNewWanderTarget (transform.localPosition);
 	}
 
