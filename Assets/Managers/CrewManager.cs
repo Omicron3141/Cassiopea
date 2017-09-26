@@ -38,7 +38,6 @@ public class CrewManager: MonoBehaviour {
 	void Update () {
 		for (int priority = 0; priority < priorities; priority++) {
 			if (UnassignedJobs [priority].Count > 0) {
-
 				if (UnassignedCrewMembers.Count > 0) {
 					Job currentJob = UnassignedJobs [priority].Dequeue ();
 					UnassignedCrewMembers [0].assignJob (currentJob);
@@ -51,16 +50,19 @@ public class CrewManager: MonoBehaviour {
 					// if this is not the lowest-priority list, that is, if there are lower priority lists.
 					for (int priorityToStealFrom = priorities - 1; priorityToStealFrom > priority; priorityToStealFrom--) {
 						if (AssignedJobs [priorityToStealFrom].Count > 0) {
-							Job oldJob = AssignedJobs [priorityToStealFrom] [0];
-							AssignedJobs [priorityToStealFrom].RemoveAt (0);
-							Person p = oldJob.assignedCrew;
-							oldJob.assignedCrew = null;
-							Job newJob = UnassignedJobs [priority].Dequeue ();
-							p.assignJob (newJob);
-							newJob.assignedCrew = p;
-							AssignedJobs[priority].Add (newJob);
-							UnassignedJobs [priorityToStealFrom].Enqueue (oldJob);
-							updateJobsUI ();
+							if (UnassignedJobs [priority].Count > 0) {
+								
+								Job oldJob = AssignedJobs [priorityToStealFrom] [0];
+								AssignedJobs [priorityToStealFrom].RemoveAt (0);
+								Person p = oldJob.assignedCrew;
+								oldJob.assignedCrew = null;
+								Job newJob = UnassignedJobs [priority].Dequeue ();
+								p.assignJob (newJob);
+								newJob.assignedCrew = p;
+								AssignedJobs [priority].Add (newJob);
+								UnassignedJobs [priorityToStealFrom].Enqueue (oldJob);
+								updateJobsUI ();
+							}
 						}
 					}
 				}
