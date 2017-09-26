@@ -247,6 +247,8 @@ MonoBehaviour:
   crewName: 
   age: 
   profession: 
+  firstNames: []
+  lastNames: []
 --- !u!212 &212086370944746508
 SpriteRenderer:
   m_ObjectHideFlags: 1
