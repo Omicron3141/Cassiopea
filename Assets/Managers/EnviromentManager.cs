@@ -25,10 +25,10 @@ public class EnviromentManager: MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (currentEvent == null) {
-			if (Random.value < eventProbability) {
+			if (Random.value < eventProbability * Time.deltaTime) {
 				GameObject ev = Instantiate(events [Random.Range (0, events.Length)]);
 				currentEvent = ev.GetComponent<GameEvent> ();
-				ev.transform.position = new Vector3 (0f, 40f, 0f);
+				ev.transform.position = new Vector3 (100f, 0f, 0f);
 				currentEvent.duration = meanDuration + (Random.value * 2 - 1) * variationDuration;
 			}
 		}

@@ -52,6 +52,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4405907592715b34eb4dbbba1ea11bfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  duration: 0
 --- !u!114 &114952291160929718
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -63,5 +64,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc7aafbdd037db14b8847830bca815e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  height: 0
-  length: 0
+  height: 30
+  length: 100
+  spawnChance: 0.8
+  speed: 10
+  rotspeed: 100
+  asteroids:
+  - {fileID: 1307502769955776, guid: bf605cd60bbefdc4380e2867177be1ef, type: 2}

@@ -5,6 +5,7 @@ using UnityEngine;
 public class Asteroid : Entity {
 	public float speed;
 	public float rotSpeed;
+	public float endPosition;
 	// Use this for initialization
 	void Start () {
 		rotSpeed *= (int)(Mathf.Round (Random.value * 2 - 1));
@@ -14,5 +15,8 @@ public class Asteroid : Entity {
 	void Update () {
 		transform.position -= new Vector3 (speed * Time.deltaTime, 0f, 0f);
 		transform.Rotate (0f, 0f, rotSpeed * Time.deltaTime);
+		if (transform.position.x < endPosition) {
+			Destroy (gameObject);
+		}
 	}
 }
