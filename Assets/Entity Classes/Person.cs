@@ -7,13 +7,21 @@ public class Person: Entity  {
 
 	private bool selected = false;
 
+	// walk speed
 	public float speed;
+	// walk speed while idle
 	public float idleSpeed;
+	// the current job being done, or null
 	public Job currentJob;
+	// A paramater to get the current job
 	private Job CurrentJob{ get{ return currentJob; } }
+	// access state
 	private bool DoingJob{ get{ return state != IDLE; } }
+	// a path is a queue of waypoints
 	private Queue<Vector3> path;
+	// the current waypoint
 	private Vector3 target;
+
 	public string crewName;
 	public string age;
 	public string profession;
@@ -32,8 +40,11 @@ public class Person: Entity  {
 	private static int DOINGJOB = 2;
 
 	void Start () {
+		// get the crew manager
 		manager = CrewManager.instance;
+		// add yourself to the crew list
 		manager.AddCrewMember (this);
+		// find your body
 		Body = transform.Find ("Body").GetComponent<SpriteRenderer>();
 
 		string currentLine; // For looping through the first names.
@@ -66,14 +77,19 @@ public class Person: Entity  {
 		this.crewName = firstNames[randomFirstIndex] + " " + lastNames[randomLastIndex];
 		this.profession = professions [randomProfIndex];
 		this.age = UnityEngine.Random.Range (25, 70).ToString ();
+
+		// start idling
 		target = Ship.playerShip.map.getNewWanderTarget (transform.localPosition);
 	}
 
 
 	void Update () {
 		if (state == IDLE) {
+			// are we basically at our target?
 			if (Mathf.Abs ((target - transform.localPosition).magnitude) < speed * Time.deltaTime) {
+				// move to our target
 				transform.localPosition = target;
+				// get a new wander point
 				target = Ship.playerShip.map.getNewWanderTarget (transform.localPosition);
 			} else {
 				float Xdirection;
@@ -97,15 +113,20 @@ public class Person: Entity  {
 				transform.Translate (Xdirection * idleSpeed * Time.deltaTime, Ydirection * idleSpeed * Time.deltaTime, 0f);
 			}
 		} else if (state == MOVINGTOJOB) {
+			// if we are basically at our target
 			if (Mathf.Abs ((target - transform.localPosition).magnitude) < speed * Time.deltaTime) {
+				// go to the target
 				transform.localPosition = target;
+				// was this our last waypoint
 				if (path.Count == 0) {
+					// start doing the job
 					if (currentJob.duration > 0 || currentJob.permenant) {
 						transform.Find ("Hands").gameObject.SetActive (true);
 					}
 					state = DOINGJOB;
 
 				} else {
+					// get the next waypoint
 					target = path.Dequeue ();
 				}
 
@@ -131,8 +152,11 @@ public class Person: Entity  {
 				transform.Translate (Xdirection * speed * Time.deltaTime, Ydirection * speed * Time.deltaTime, 0f);
 			}
 		} else if (state == DOINGJOB) {
+			// if the job is not permenant
 			if (!currentJob.permenant) {
+				// decrease the time remaining
 				currentJob.duration -= Time.deltaTime;
+				// if we're done
 				if (currentJob.duration < 0) {
 					manager.UnassignJob (this, currentJob);
 					if (currentJob.onComplete != null) {

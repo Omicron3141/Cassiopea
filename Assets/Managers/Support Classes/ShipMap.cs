@@ -22,6 +22,8 @@ public class ShipMap{
 		}
 	}
 
+
+	// get the thing at
 	public int thingAt(int x, int y) {
 		if ((x < width) && (y < height) && (x>=0) && (y>=0)) {
 			return map [x, y];
@@ -30,6 +32,8 @@ public class ShipMap{
 			return -1;
 		}
 	}
+
+	// set the thing at
 	public void setThing(int x, int y, int thing) {
 		if ((x < width) && (y < height) && (x>=0) && (y>=0)) {
 			map [x, y] = thing;
@@ -37,18 +41,23 @@ public class ShipMap{
 			Debug.LogError ("Tried to access out-of-bounds map index at "+x+","+y);
 		}
 	}
+
+	// are we within the bounds we're keeping track of
 	public bool isWithinBounds(Vector3 pos) {
 		return (((int)pos.x < width) && ((int)pos.y < height));
 	}
 
+	// is this inside the ship proper
 	public bool isInShip (int x, int y) {
 		return (thingAt (x, y) >= 0);
 	}
 
-	public bool isPassible (int x, int y) {
+	// can crew people walk here
+	public bool isPassable (int x, int y) {
 		return (thingAt (x, y) == passable);
 	}
 
+	// is the thing here a ladder
 	public bool isLadder (int x, int y) {
 		return (thingAt (x, y) == ladder);
 	}
@@ -57,7 +66,7 @@ public class ShipMap{
 	public Vector3 onFloor(Vector3 pos) {
 		float x = pos.x;
 		float y = pos.y;
-		while ((isPassible((int)x, (int)(y-1))) && (isInShip((int)x, (int)(y-1)))){
+		while ((isPassable((int)x, (int)(y-1))) && (isInShip((int)x, (int)(y-1)))){
 			y--;
 		}
 		return new Vector3 (x, y, pos.z);
@@ -102,13 +111,14 @@ public class ShipMap{
 
 	}
 
+	// return a random place near to the specified position and on the same level
 	public Vector3 getNewWanderTarget (Vector3 startpos) {
 		int startx = (int)startpos.x;
 		int starty = (int)startpos.y;
 		int direction = (int)(Mathf.Round (Random.value) * 2 - 1);
 		int distance = Random.Range (3, 4);
 		for (int i = 1; i < distance; i++) {
-			if (!isPassible (startx + direction * i, starty)) {
+			if (!isPassable (startx + direction * i, starty)) {
 				distance = i-1;
 			}
 		}

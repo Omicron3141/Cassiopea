@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameEvent : Entity {
 
 	public float duration;
+	public float destroyDelay;
 	EnviromentManager env;
 	// Use this for initialization
 	void Start () {
@@ -16,7 +17,7 @@ public class GameEvent : Entity {
 		duration -= Time.deltaTime;
 		if (duration < 0) {
 			env.endEvent ();
-			Destroy (gameObject);
+			Destroy (gameObject, destroyDelay);
 		}
 	}
 }

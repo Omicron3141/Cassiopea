@@ -6,14 +6,20 @@ using UnityEngine.UI;
 public class CrewManager: MonoBehaviour {
 
 	public static CrewManager instance;
+
+	// The number of possible priorities
 	public const int priorities = 3;
 
+	// Crew
 	private List<Person> UnassignedCrewMembers = new List<Person> ();
 	private List<Person> AssignedCrewMembers = new List<Person> ();
 
+	// List of length priorities, where each entry is a queue of jobs
 	private List<Queue<Job>> UnassignedJobs = new List<Queue<Job>> ();
+
 	private List<List<Job>> AssignedJobs = new List<List<Job>> ();
 
+	// currently selected crew member
 	public Person selectedCrew;
 
 	public Text jobsUI;
@@ -21,11 +27,14 @@ public class CrewManager: MonoBehaviour {
 
 	// Use this for initialization
 	void Awake () {
+		// handles singleton
 		if (instance == null) {
 			instance = this;
 		} else {
 			Destroy (gameObject);
 		}
+
+		// Create the empty lists and queues for jobs
 		for (int i = 0; i < priorities; i++) {
 			UnassignedJobs.Add(new Queue<Job> ());
 			AssignedJobs.Add(new List<Job> ());
@@ -36,19 +45,25 @@ public class CrewManager: MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		// Go through each priority level
 		for (int priority = 0; priority < priorities; priority++) {
+			// If there is an unassigned job of this priority, try to assign
 			if (UnassignedJobs [priority].Count > 0) {
+				// Are there any free crew
 				if (UnassignedCrewMembers.Count > 0) {
+					// Assign it to that crew
 					Job currentJob = UnassignedJobs [priority].Dequeue ();
 					UnassignedCrewMembers [0].assignJob (currentJob);
 					currentJob.assignedCrew = UnassignedCrewMembers [0];
 					AssignedCrewMembers.Add (UnassignedCrewMembers [0]);
 					UnassignedCrewMembers.RemoveAt (0);
 					AssignedJobs[priority].Add (currentJob);
-					updateJobsUI ();
+				// there are no available crew, check if this is the lowest priority
 				} else if (priority < priorities-1) {
 					// if this is not the lowest-priority list, that is, if there are lower priority lists.
+					// search through all lower-priority lists, starting with the lowest priority
 					for (int priorityToStealFrom = priorities - 1; priorityToStealFrom > priority; priorityToStealFrom--) {
+						// if there's a job we can steal from
 						if (AssignedJobs [priorityToStealFrom].Count > 0) {
 							if (UnassignedJobs [priority].Count > 0) {
 								
@@ -73,11 +88,12 @@ public class CrewManager: MonoBehaviour {
 
 	}
 
+	// Add a new crew member to the lists
 	public void AddCrewMember(Person p) {
 		UnassignedCrewMembers.Add(p);
 	}
 
-
+	// Deletes the job, and makes the crew member unassigned again
 	public void UnassignJob(Person p, Job j){
 		AssignedJobs[j.priority].Remove(j);
 		AssignedCrewMembers.Remove (p);
@@ -85,11 +101,12 @@ public class CrewManager: MonoBehaviour {
 		updateJobsUI ();
 	}
 
+	// Add a new job to the unassigned queues
 	public void addNewJob(Job j){
 		UnassignedJobs[j.priority].Enqueue(j);
 		updateJobsUI ();
 	}
-
+		
 	private void updateJobsUI() {
 		string text = "";
 		for (int i = 0; i < priorities; i++) {
