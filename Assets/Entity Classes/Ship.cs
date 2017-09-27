@@ -77,22 +77,22 @@ public class Ship: SpaceObject  {
 	}
 
 	private void updateOxygenDisplay() {
-		string text = "Oxygen: " + this.oxygen.percentage.ToString () + "%";
+		string text = this.oxygen.percentage.ToString () + "%";
 		oxygenDisplay.text = text;
 	}
 
 	private void updateFoodDisplay() {
-		string text = "Food: " + this.food.currentFood.ToString () + " / " + this.food.maximumFoodStorage.ToString ();
+		string text = this.food.currentFood.ToString () + " / " + this.food.maximumFoodStorage.ToString ();
 		foodDisplay.text = text;
 	}
 
 	private void updateHullDisplay() {
-		string text = "Hull: " + this.hull.currentHullIntegrity.ToString () + " / " + this.hull.maximumHullIntegrity.ToString ();
+		string text = this.hull.currentHullIntegrity.ToString () + " / " + this.hull.maximumHullIntegrity.ToString ();
 		hullDisplay.text = text;
 	}
 
 	private void updateFuelDisplay() {
-		string text = "Fuel: " + this.fuel.amount.ToString () + " / " + this.fuel.maximumFuelStorage.ToString ();
+		string text = this.fuel.amount.ToString () + " / " + this.fuel.maximumFuelStorage.ToString ();
 		fuelDisplay.text = text;
 	}
 }
