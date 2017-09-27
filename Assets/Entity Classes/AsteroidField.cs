@@ -10,7 +10,7 @@ public class AsteroidField : MonoBehaviour {
 	public float spawntimer = 0f;
 	public float speed;
 	public float rotspeed;
-	public float spawnBuffer = 7f;
+	public float spawnBuffer = 3f;
 	public GameObject[] asteroids;
 	PassiveEvent ev;
 	private bool createAsteroids = true;
@@ -26,7 +26,7 @@ public class AsteroidField : MonoBehaviour {
 			GameObject astr = Instantiate (asteroids [Random.Range (0, asteroids.Length)]);
 			float newY = transform.position.y + (Random.value - 0.5f) * height;
 			int i = 10;
-			while (Mathf.Abs (newY - lastSpawnedY) < 300f && i>0) {
+			while (Mathf.Abs (newY - lastSpawnedY) < spawnBuffer && i>0) {
 				newY = transform.position.y + (Random.value - 0.5f) * height;
 				i--;
 			}
