@@ -517,7 +517,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   events:
   - {fileID: 1501036950380778, guid: 58890ccef7b55ba4783791f9160be744, type: 2}
-  eventProbability: 0.1
+  eventProbability: 0.5
   meanDuration: 90
   variationDuration: 45
 --- !u!4 &479324831

@@ -27,9 +27,15 @@ public class EnviromentManager: MonoBehaviour {
 		if (currentEvent == null) {
 			if (Random.value < eventProbability * Time.deltaTime) {
 				GameObject ev = Instantiate(events [Random.Range (0, events.Length)]);
+				Debug.Log ("Starting Event: " + ev.ToString ());
 				currentEvent = ev.GetComponent<GameEvent> ();
-				ev.transform.position = new Vector3 (100f, 0f, 0f);
-				currentEvent.duration = meanDuration + (Random.value * 2 - 1) * variationDuration;
+				if (currentEvent.eventType == GameEvent.PASSIVE) {
+					PassiveEvent passiveEvent = (PassiveEvent)currentEvent;
+					ev.transform.position = new Vector3 (100f, 0f, 0f);
+					passiveEvent.duration = meanDuration + (Random.value * 2 - 1) * variationDuration;
+				} else if (currentEvent.eventType == GameEvent.POPUP) {
+					PopupEvent popupEvent = (PopupEvent)currentEvent;
+				}
 			}
 		}
 	}
