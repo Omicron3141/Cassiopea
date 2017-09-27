@@ -5,12 +5,9 @@ using UnityEngine;
 // The ship's oxygen supply is one of the resources that players of Cassiopeia need to keep track of.
 // The ship's oxygen supply is displayed as a percentage on a counter that will change color depending on how
 // the current oxygen level will affect crew members.
-
-namespace AssemblyCSharp 
-{
 	public class Oxygen
 	{
-		int percentage;
+		public int percentage;
 
 		// This is the default constructor. By default, a ship starts with 100% oxygen.
 		public Oxygen()
@@ -43,4 +40,3 @@ namespace AssemblyCSharp
 			percentage += percentAdded;
 		}
 	}
-}

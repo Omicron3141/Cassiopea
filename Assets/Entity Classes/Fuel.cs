@@ -6,8 +6,6 @@ using UnityEngine;
 // Fuel is used to move a ship between locations, and it can potentially be lost
 // and gained via events.
 
-namespace AssemblyCSharp
-{
 	public class Fuel
 	{
 		public int amount;
@@ -17,7 +15,7 @@ namespace AssemblyCSharp
 		public Fuel (int maxFuelStorage)
 		{
 			maximumFuelStorage = maxFuelStorage;
-			amount = 0;
+			amount = maxFuelStorage;
 		}
 
 		// This is a contrusctor that can specify the amount of fuel that the ship starts with.
@@ -71,5 +69,3 @@ namespace AssemblyCSharp
 			this.maximumFuelStorage += amountToBeUpgraded;
 		}
 	}
-}
-

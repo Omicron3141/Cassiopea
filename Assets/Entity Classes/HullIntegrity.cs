@@ -4,12 +4,10 @@ using UnityEngine;
 
 // Hull Integrity represents the health of the ship. When hull integrity reaches zero, the ship has been destroyed.
 
-namespace AssemblyCSharp
-{
 	public class HullIntegrity
 	{
-		int maximumHullIntegrity;
-		int currentHullIntegrity;
+		public int maximumHullIntegrity;
+		public int currentHullIntegrity;
 
 		// When we use the default constructor, the hull integrity starts at its maximum potential hull integrity.
 		public HullIntegrity (int maxHullIntegrity)
@@ -56,5 +54,3 @@ namespace AssemblyCSharp
 		}
 
 	}
-}
-

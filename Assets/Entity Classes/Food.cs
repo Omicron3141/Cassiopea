@@ -1,13 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-namespace AssemblyCSharp
-{
 	public class Food
 	{
-		int maximumFoodStorage;
-		int currentFood;
+		public int maximumFoodStorage;
+		public int currentFood;
 
 		// The default constructor sets the current food equal to the maximum food.
 		public Food (int maxFoodStorage)
@@ -65,5 +62,4 @@ namespace AssemblyCSharp
 		}
 
 	}
-}
 

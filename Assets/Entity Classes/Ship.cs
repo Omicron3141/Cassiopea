@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Ship: SpaceObject  {
 	public static Ship playerShip;
@@ -11,6 +12,14 @@ public class Ship: SpaceObject  {
 	int ladderID = 7;
 
 	public ShipMap map;
+	public Oxygen oxygen = new Oxygen();
+	public Food food = new Food(100);
+	public HullIntegrity hull = new HullIntegrity (100);
+	public Fuel fuel = new Fuel(100);
+	public Text oxygenDisplay;
+	public Text hullDisplay;
+	public Text foodDisplay;
+	public Text fuelDisplay;
 
 	void Awake () {
 		if (playerShip == null && isPlayerShip) {
@@ -23,7 +32,10 @@ public class Ship: SpaceObject  {
 
 
 	void Update () {
-
+		updateOxygenDisplay ();
+		updateFoodDisplay ();
+		updateHullDisplay ();
+		updateFuelDisplay ();
 	}
 
 
@@ -62,5 +74,25 @@ public class Ship: SpaceObject  {
 			}
 			y--;
 		}	
+	}
+
+	private void updateOxygenDisplay() {
+		string text = "Oxygen: " + this.oxygen.percentage.ToString () + "%";
+		oxygenDisplay.text = text;
+	}
+
+	private void updateFoodDisplay() {
+		string text = "Food: " + this.food.currentFood.ToString () + " / " + this.food.maximumFoodStorage.ToString ();
+		foodDisplay.text = text;
+	}
+
+	private void updateHullDisplay() {
+		string text = "Hull: " + this.hull.currentHullIntegrity.ToString () + " / " + this.hull.maximumHullIntegrity.ToString ();
+		hullDisplay.text = text;
+	}
+
+	private void updateFuelDisplay() {
+		string text = "Fuel: " + this.fuel.amount.ToString () + " / " + this.fuel.maximumFuelStorage.ToString ();
+		fuelDisplay.text = text;
 	}
 }
