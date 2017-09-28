@@ -89,7 +89,7 @@ MonoBehaviour:
   spawnDurationRandomization: 0.15
   spawntimer: 0
   speed: 10
-  rotspeed: 100
+  rotspeed: 50
   spawnBuffer: 7
   asteroids:
   - {fileID: 1671189885103348, guid: bf605cd60bbefdc4380e2867177be1ef, type: 2}

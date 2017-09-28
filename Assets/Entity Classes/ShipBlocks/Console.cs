@@ -17,6 +17,7 @@ public class Console : Entity {
 		if (mannable) {
 			Job j = new Job ();
 			j.Location = new Vector2(transform.localPosition.x, transform.localPosition.y) + interactionSpot;
+			j.AssignerLocation = transform.localPosition;
 			j.permenant = true;
 			j.desc = "Man " + humanReadableName + " at";
 			j.priority = 2;
@@ -29,6 +30,7 @@ public class Console : Entity {
 		if (Random.value < maintenanceChance && !broken) {
 			Job j = new Job();
 			j.Location = new Vector2(transform.localPosition.x, transform.localPosition.y) + interactionSpot;
+			j.AssignerLocation = transform.localPosition;
 			j.duration = maintenanceDuraction;
 			j.desc = "Perform maintenance on " + humanReadableName + " at";
 			j.onComplete = MaintenanceComplete;

@@ -122,6 +122,11 @@ public class Person: Entity  {
 					// start doing the job
 					if (currentJob.duration > 0 || currentJob.permenant) {
 						transform.Find ("Hands").gameObject.SetActive (true);
+						float facing = -1f;
+						if (currentJob.AssignerLocation.x - currentJob.Location.x < 0) {
+							facing = 1f;
+						}
+						transform.localScale = new Vector3 (facing, 1f, 1f);
 					}
 					state = DOINGJOB;
 

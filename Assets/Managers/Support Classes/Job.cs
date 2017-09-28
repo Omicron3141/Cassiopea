@@ -12,6 +12,8 @@ public class Job  {
 	public int priority = 2;
 	// Place to go to to do job
 	public Vector3 Location;
+	// The location of the thing assigning the job
+	public Vector3 AssignerLocation;
 	// How long to spend doing the job
 	public float duration;
 	// Jobs that always need to be done, e.g. manning a station

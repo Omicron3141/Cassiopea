@@ -44,6 +44,7 @@ public class InteractionManager : MonoBehaviour {
 				if ((Ship.playerShip.map.isInShip ((int)loc.x, (int)loc.y)) && (Ship.playerShip.map.isPassable ((int)loc.x, (int)loc.y))) {
 					Job j = new Job ();
 					j.Location = Ship.playerShip.map.onFloor (loc);
+					j.AssignerLocation = j.Location;
 					j.desc = "Manual move to";
 					j.priority = 1;
 					crewManager.addNewJob (j);
