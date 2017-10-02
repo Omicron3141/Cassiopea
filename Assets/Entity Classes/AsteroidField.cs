@@ -15,6 +15,7 @@ public class AsteroidField : MonoBehaviour {
 	PassiveEvent ev;
 	private bool createAsteroids = true;
 	private float lastSpawnedY = 0f;
+	public float destroyDelay;
 	// Use this for initialization
 	void Start () {
 		ev = GetComponent<PassiveEvent> ();
@@ -41,7 +42,7 @@ public class AsteroidField : MonoBehaviour {
 		} else {
 			spawntimer -= Time.deltaTime;
 		}
-		if (ev.duration < 0) {
+		if (ev.duration < destroyDelay) {
 			ParticleSystem.EmissionModule sys = transform.Find("Particle System").GetComponent<ParticleSystem> ().emission;
 			sys.enabled = false;
 			createAsteroids = false;

@@ -21,11 +21,14 @@ public class Ship: SpaceObject  {
 	public Text foodDisplay;
 	public Text fuelDisplay;
 
+	public List<Cannon> cannons;
+
 	void Awake () {
 		if (playerShip == null && isPlayerShip) {
 			playerShip = this;
 		}
 		map = new ShipMap (70, 30);
+		cannons = new List<Cannon> ();
 		ConstructShip ("TestShip");
 		//map.printMap ();
 	}
@@ -94,5 +97,19 @@ public class Ship: SpaceObject  {
 	private void updateFuelDisplay() {
 		string text = this.fuel.amount.ToString () + " / " + this.fuel.maximumFuelStorage.ToString ();
 		fuelDisplay.text = text;
+	}
+
+	public bool isWithinShip(Vector3 pos) {
+		return map.isWithinBounds (pos);
+	}
+
+	public void addCannon(Cannon c){
+		cannons.Add (c);
+	}
+
+	public void target(Vector3 target) {
+		for (int i = 0; i < cannons.Count; i++) {
+			cannons [i].target (target);
+		}
 	}
 }

@@ -6,7 +6,9 @@ public class ShipMap{
 	int[,] map;
 	int width;
 	int height;
-
+	// the actual width and height taken up by stuff
+	int actualW;
+	int actualH;
 	public const int ladder = 2;
 	public const int passable = 0;
 	public const int impassible = 1;
@@ -14,6 +16,8 @@ public class ShipMap{
 	public ShipMap(int w, int h) {
 		width = w;
 		height = h;
+		actualH = 0;
+		actualW = 0;
 		map = new int[width, height];
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
@@ -37,6 +41,12 @@ public class ShipMap{
 	public void setThing(int x, int y, int thing) {
 		if ((x < width) && (y < height) && (x>=0) && (y>=0)) {
 			map [x, y] = thing;
+			if (x > actualW) {
+				actualW = x;
+			}
+			if (y > actualH) {
+				actualH = y;
+			}
 		} else {
 			Debug.LogError ("Tried to access out-of-bounds map index at "+x+","+y);
 		}
@@ -44,7 +54,7 @@ public class ShipMap{
 
 	// are we within the bounds we're keeping track of
 	public bool isWithinBounds(Vector3 pos) {
-		return (((int)pos.x < width) && ((int)pos.y < height));
+		return (((int)pos.x < actualW) && ((int)pos.y < actualH));
 	}
 
 	// is this inside the ship proper

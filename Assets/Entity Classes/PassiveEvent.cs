@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PassiveEvent : GameEvent {
 	public float duration;
-	public float destroyDelay;
 	// Use this for initialization
 	protected override void Start () {
 		base.Start ();
@@ -19,7 +18,7 @@ public class PassiveEvent : GameEvent {
 		duration -= Time.deltaTime;
 		if (duration < 0) {
 			env.endEvent ();
-			Destroy (gameObject, destroyDelay);
+			Destroy (gameObject);
 		}
 	}
 }
