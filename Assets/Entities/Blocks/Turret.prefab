@@ -165,6 +165,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   barrel: {fileID: 1760804681875870}
+  rotspeed: 50
+  minangle: 0
+  maxangle: 180
+  blockedmedia: 270
 --- !u!212 &212036559510404466
 SpriteRenderer:
   m_ObjectHideFlags: 1

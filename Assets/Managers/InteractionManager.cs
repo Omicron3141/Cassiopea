@@ -24,9 +24,8 @@ public class InteractionManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		Vector3 mousePos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
-		if (!Ship.playerShip.isWithinShip (mousePos)) {
-			Ship.playerShip.target (mousePos);
-		} else {
+		Ship.playerShip.target (mousePos);
+		if (Ship.playerShip.isWithinShip (mousePos)) {
 			if (Input.GetMouseButtonUp (0)) {
 				RaycastHit2D hit = Physics2D.Raycast (new Vector2 (Camera.main.ScreenToWorldPoint (Input.mousePosition).x, Camera.main.ScreenToWorldPoint (Input.mousePosition).y), Vector2.zero);
 				if (crewManager.selectedCrew != null) {
