@@ -112,4 +112,10 @@ public class Ship: SpaceObject  {
 			cannons [i].target (target);
 		}
 	}
+
+	public void fire() {
+		for (int i = 0; i < cannons.Count; i++) {
+			cannons [i].fire();
+		}
+	}
 }

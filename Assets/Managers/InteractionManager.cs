@@ -25,6 +25,9 @@ public class InteractionManager : MonoBehaviour {
 	void Update () {
 		Vector3 mousePos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
 		Ship.playerShip.target (mousePos);
+		if (Input.GetMouseButton (0)) {
+			Ship.playerShip.fire ();
+		}
 		if (Ship.playerShip.isWithinShip (mousePos)) {
 			if (Input.GetMouseButtonUp (0)) {
 				RaycastHit2D hit = Physics2D.Raycast (new Vector2 (Camera.main.ScreenToWorldPoint (Input.mousePosition).x, Camera.main.ScreenToWorldPoint (Input.mousePosition).y), Vector2.zero);

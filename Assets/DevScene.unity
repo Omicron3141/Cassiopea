@@ -194,7 +194,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4547188473992604, guid: 7799da02105149b488cec229744aa3a3, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4547188473992604, guid: 7799da02105149b488cec229744aa3a3, type: 2}
       propertyPath: m_LocalPosition.z
@@ -572,11 +572,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4547188473992604, guid: 7799da02105149b488cec229744aa3a3, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 25
+      value: 23
       objectReference: {fileID: 0}
     - target: {fileID: 4547188473992604, guid: 7799da02105149b488cec229744aa3a3, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 6
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4547188473992604, guid: 7799da02105149b488cec229744aa3a3, type: 2}
       propertyPath: m_LocalPosition.z
@@ -950,7 +950,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4547188473992604, guid: 7799da02105149b488cec229744aa3a3, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 6
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4547188473992604, guid: 7799da02105149b488cec229744aa3a3, type: 2}
       propertyPath: m_LocalPosition.z
@@ -4997,7 +4997,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4547188473992604, guid: 7799da02105149b488cec229744aa3a3, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4547188473992604, guid: 7799da02105149b488cec229744aa3a3, type: 2}
       propertyPath: m_LocalPosition.z
@@ -5158,6 +5158,7 @@ MonoBehaviour:
   - {fileID: 1454095987800848, guid: dee67c86635e1a8448a18a3358724dfa, type: 2}
   - {fileID: 1903949294013466, guid: c975f665ff72a4149a5dcfe0aae3cfcd, type: 2}
   - {fileID: 1373535442641126, guid: 2ce7938fc8477e942887964cffe844d8, type: 2}
+  - {fileID: 1575220686466098, guid: 0e43fa01957603d4984902b0eb51a3e8, type: 2}
   oxygenDisplay: {fileID: 2123891320}
   hullDisplay: {fileID: 513101152}
   foodDisplay: {fileID: 233597507}
