@@ -14,6 +14,7 @@ public class Cannon : MonoBehaviour {
 	public float fireinterval = 1f;
 	bool validtarget = false;
 	bool ontarget = false;
+	Console console;
 
 	public GameObject bullet;
 	public float barrellength = 10f;
@@ -24,28 +25,31 @@ public class Cannon : MonoBehaviour {
 		playerShip.addCannon (this);
 		rottarget = barrel.transform.rotation.eulerAngles.z;
 		firetimer = 0f;
+		console = GetComponent<Console> ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		float distancetogo = rottarget - barrel.transform.rotation.eulerAngles.z;
-		if (distancetogo > 180) {
-			distancetogo -= 360;
-		} else if (distancetogo < -180) {
-			distancetogo += 360;
-		}  
-		// go in the correct direction if either will do
-		if (Mathf.Abs (distancetogo) == 180) {
-			barrel.transform.Rotate (new Vector3 (0f, 0f, rotspeed * Time.deltaTime * Mathf.Sign (distancetogo) * Mathf.Sign(blockedmedian-180)));
-			ontarget = false;
-		}else if (Mathf.Abs (distancetogo) < rotspeed * Time.deltaTime) {
-			barrel.transform.rotation = Quaternion.Euler (new Vector3 (0f, 0f, rottarget));
-			ontarget = true;
-		} else {
-			barrel.transform.Rotate (new Vector3 (0f, 0f, rotspeed * Time.deltaTime * distancetogo / Mathf.Abs (distancetogo)));
-			ontarget = false;
+		if (console.manned) {
+			float distancetogo = rottarget - barrel.transform.rotation.eulerAngles.z;
+			if (distancetogo > 180) {
+				distancetogo -= 360;
+			} else if (distancetogo < -180) {
+				distancetogo += 360;
+			}  
+			// go in the correct direction if either will do
+			if (Mathf.Abs (distancetogo) == 180) {
+				barrel.transform.Rotate (new Vector3 (0f, 0f, rotspeed * Time.deltaTime * Mathf.Sign (distancetogo) * Mathf.Sign (blockedmedian - 180)));
+				ontarget = false;
+			} else if (Mathf.Abs (distancetogo) < rotspeed * Time.deltaTime) {
+				barrel.transform.rotation = Quaternion.Euler (new Vector3 (0f, 0f, rottarget));
+				ontarget = true;
+			} else {
+				barrel.transform.Rotate (new Vector3 (0f, 0f, rotspeed * Time.deltaTime * distancetogo / Mathf.Abs (distancetogo)));
+				ontarget = false;
+			}
+			firetimer -= Time.deltaTime;
 		}
-		firetimer -= Time.deltaTime;
 	}
 
 	public void target (Vector3 tar){
@@ -74,7 +78,7 @@ public class Cannon : MonoBehaviour {
 	}
 
 	public void fire(){
-		if (ontarget && validtarget && firetimer < 0f) {
+		if (console.manned && ontarget && validtarget && firetimer < 0f) {
 			GameObject b = Instantiate (bullet);
 			b.transform.rotation = barrel.transform.rotation;
 			b.transform.position = firepoint.transform.position;

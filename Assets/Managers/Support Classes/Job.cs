@@ -22,6 +22,12 @@ public class Job  {
 	public string desc;
 	// The crew member the job is assigned to, or null if unassigned
 	public Person assignedCrew;
+	// the action to call when the job is received
+	public Action onReceive;
+	// the action to call when the job is started
+	public Action onStart;
+	// the action to call when the job is interrupted
+	public Action onInterrupt;
 	// the action to call when the job is done
 	public Action onComplete;
 	bool assigned = false;

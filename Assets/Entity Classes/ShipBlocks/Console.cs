@@ -10,6 +10,7 @@ public class Console : Entity {
 	public int maintenancePriority = 1;
 	private CrewManager crewManager;
 	public bool broken = false;
+	public bool manned = false;
 	public bool mannable = false;
 	// Use this for initialization
 	void Start () {
@@ -21,6 +22,8 @@ public class Console : Entity {
 			j.permenant = true;
 			j.desc = "Man " + humanReadableName + " at";
 			j.priority = 2;
+			j.onStart = NowManned;
+			j.onInterrupt = NowUnmanned;
 			crewManager.addNewJob (j);
 		}
 	}
@@ -42,5 +45,12 @@ public class Console : Entity {
 
 	void MaintenanceComplete() {
 		broken = false;
+	}
+
+	void NowManned() {
+		manned = true;
+	}
+	void NowUnmanned() {
+		manned = false;
 	}
 }

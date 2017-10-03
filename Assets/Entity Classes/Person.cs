@@ -128,6 +128,9 @@ public class Person: Entity  {
 						}
 						transform.localScale = new Vector3 (facing, 1f, 1f);
 					}
+					if (currentJob.onStart != null) {
+						currentJob.onStart.Invoke ();
+					}
 					state = DOINGJOB;
 
 				} else {
@@ -177,12 +180,18 @@ public class Person: Entity  {
 	}
 
 	public void assignJob(Job job) {
+		if (currentJob != null && currentJob.onInterrupt != null) {
+			currentJob.onInterrupt.Invoke ();
+		}
 		currentJob = job;
 		currentJob.Location.z = transform.localPosition.z;
 		path = Ship.playerShip.map.pathfind (transform.localPosition, currentJob.Location);
 		target = path.Dequeue ();
 		state = MOVINGTOJOB;
 		transform.Find ("Hands").gameObject.SetActive (false);
+		if (currentJob.onReceive != null) {
+			currentJob.onReceive.Invoke ();
+		}
 
 	}
 
