@@ -35,6 +35,7 @@ public class AsteroidField : MonoBehaviour {
 			astr.transform.position = new Vector3 (transform.position.x, newY, 0.1f);
 			float scale = Random.value + 0.5f;
 			astr.transform.localScale = new Vector3 (scale, scale, 1f);
+			astr.GetComponent<Asteroid> ().health = scale * 20;
 			astr.GetComponent<Asteroid> ().endPosition = -100;
 			astr.GetComponent<Asteroid> ().speed = speed + Random.value * 2;
 			astr.GetComponent<Asteroid> ().rotSpeed = rotspeed * (Random.value + 0.5f) * (Random.Range (0, 2) * 2f - 1f);
