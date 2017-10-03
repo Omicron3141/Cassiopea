@@ -15,6 +15,7 @@ public class Cannon : MonoBehaviour {
 	bool validtarget = false;
 	bool ontarget = false;
 	Console console;
+	public GameObject anim;
 
 	public GameObject bullet;
 	public float barrellength = 10f;
@@ -30,6 +31,7 @@ public class Cannon : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		anim.SetActive (console.manned);
 		if (console.manned) {
 			float distancetogo = rottarget - barrel.transform.rotation.eulerAngles.z;
 			if (distancetogo > 180) {

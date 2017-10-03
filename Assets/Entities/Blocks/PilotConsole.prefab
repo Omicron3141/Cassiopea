@@ -86,6 +86,7 @@ GameObject:
   - component: {fileID: 212857870728413442}
   - component: {fileID: 114152264735894460}
   - component: {fileID: 114839048499062566}
+  - component: {fileID: 114191394046633022}
   m_Layer: 0
   m_Name: PilotConsole
   m_TagString: Untagged
@@ -126,7 +127,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1903949294013466}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -30.553183, y: -9.938835, z: 0}
+  m_LocalPosition: {x: -357.47147, y: -137.20862, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4819795769669818}
@@ -194,7 +195,20 @@ MonoBehaviour:
   humanReadableName: helm station
   maintenancePriority: 1
   broken: 0
+  manned: 0
   mannable: 1
+--- !u!114 &114191394046633022
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1903949294013466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cceb3ebaae2c07b4c9c121b9d9f8c0d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 1648859410020822}
 --- !u!114 &114839048499062566
 MonoBehaviour:
   m_ObjectHideFlags: 1

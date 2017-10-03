@@ -112,7 +112,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1373535442641126}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.6465788, y: 5.809725, z: 0.01}
+  m_LocalPosition: {x: -90.165215, y: -241.56792, z: 0.01}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4927057385035774}
@@ -181,6 +181,7 @@ MonoBehaviour:
   humanReadableName: turret control
   maintenancePriority: 0
   broken: 0
+  manned: 0
   mannable: 1
 --- !u!114 &114924818451092142
 MonoBehaviour:
@@ -200,6 +201,7 @@ MonoBehaviour:
   maxangle: 180
   blockedmedian: 270
   fireinterval: 0.5
+  anim: {fileID: 1919614614489034}
   bullet: {fileID: 1527248421050848, guid: b2f6ffe3ffed455408b1c68306a4fb7d, type: 2}
   barrellength: 10
 --- !u!212 &212036559510404466
@@ -276,7 +278,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: a3286329cf045b948b3bc85ed723fa2b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a0cdd8a8462231f40a29e00327eab473, type: 3}
   m_Color: {r: 1, g: 0.9852941, b: 0.9852941, a: 0.784}
   m_FlipX: 0
   m_FlipY: 0
