@@ -643,9 +643,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   events:
   - {fileID: 1448695850289280, guid: 03d240056ae12004ebc9843c2a5ebfa8, type: 2}
+  - {fileID: 1631932442004836, guid: ea9c1c1a47b8a407491bead88af123b7, type: 2}
+  - {fileID: 1488711799181750, guid: 34b4399025cb140f097eb31b976f6025, type: 2}
+  - {fileID: 1617604397616488, guid: 75daf1544a9064f3c8c728ba4e808a93, type: 2}
   eventProbability: 0.5
-  meanDuration: 90
-  variationDuration: 45
+  meanDuration: 1
+  variationDuration: 0
 --- !u!4 &479324831
 Transform:
   m_ObjectHideFlags: 0
@@ -1768,7 +1771,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1167070039
+  randomSeed: 1872159065
   InitialModule:
     serializedVersion: 3
     enabled: 1
