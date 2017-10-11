@@ -1,0 +1,17 @@
+﻿{"events": 
+	[{"tag":"bre-0",
+	"title": "Food Spoils", 
+	"text": "One of your crew members has found spoiled food in our storage. Apparently it had been improperly preserved. Hopefully we can get along without it.\n\n\nWe lost 5 food.", 
+	"weight": 1.0, 
+	"buttons":[{"text": "That's unfortunate.", "function": "changeResource", "paramaters": ["food", "-5"]}]},
+	{"tag":"bre-1",
+	"title": "Fuel Leak", 
+	"text": "Following an odd smell, a crew member realized that a batch of fuel was leaking. We won’t be able to salvage the fuel, but at least they prevented a potential catastrophe by fixing the leak.\n\n\nWe lost 5 fuel.", 
+	"weight": 1.0, 
+	"buttons":[{"text": "Could be worse.", "function": "changeResource", "paramaters": ["fuel", "-5"]}]},
+	{"tag":"bre-2",
+	"title": "Good Seeds", 
+	"text": "It looks like the seeds we brought for our hydroponics have been unexpectedly effective. The extra food will be welcome.\n\n\nWe gained 5 food.", 
+	"weight": 1.0, 
+	"buttons":[{"text": "Excellent.", "function": "changeResource", "paramaters": ["fuel", "5"]}]}
+]}

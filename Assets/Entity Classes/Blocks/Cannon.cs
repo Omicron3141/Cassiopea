@@ -32,7 +32,7 @@ public class Cannon : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		anim.SetActive (console.manned);
-		if (console.manned) {
+		if (console.manned && (Time.deltaTime > 0)) {
 			float distancetogo = rottarget - barrel.transform.rotation.eulerAngles.z;
 			if (distancetogo > 180) {
 				distancetogo -= 360;

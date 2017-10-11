@@ -16,9 +16,12 @@ public class AsteroidField : MonoBehaviour {
 	private bool createAsteroids = true;
 	private float lastSpawnedY = 0f;
 	public float destroyDelay;
+	public float meanDuration;
+	public float variationDuration;
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		ev = GetComponent<PassiveEvent> ();
+		ev.duration = meanDuration + (Random.value - 0.5f) * variationDuration;
 	}
 	
 	// Update is called once per frame
@@ -32,7 +35,7 @@ public class AsteroidField : MonoBehaviour {
 				i--;
 			}
 			lastSpawnedY = newY;
-			astr.transform.position = new Vector3 (transform.position.x, newY, 0.1f);
+			astr.transform.position = new Vector3 (transform.position.x + 100f, newY, 0.1f);
 			float scale = Random.value + 0.5f;
 			astr.transform.localScale = new Vector3 (scale, scale, 1f);
 			astr.GetComponent<Asteroid> ().health = scale * 20;
