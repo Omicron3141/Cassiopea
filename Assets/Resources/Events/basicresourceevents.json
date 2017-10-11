@@ -13,5 +13,5 @@
 	"title": "Good Seeds", 
 	"text": "It looks like the seeds we brought for our hydroponics have been unexpectedly effective. The extra food will be welcome.\n\n\nWe gained 5 food.", 
 	"weight": 1.0, 
-	"buttons":[{"text": "Excellent.", "function": "changeResource", "paramaters": ["fuel", "5"]}]}
+	"buttons":[{"text": "Excellent.", "function": "changeResource", "paramaters": ["food", "5"]}]}
 ]}
