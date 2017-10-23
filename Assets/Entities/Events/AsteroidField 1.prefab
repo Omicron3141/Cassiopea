@@ -96,7 +96,7 @@ MonoBehaviour:
   - {fileID: 1953762456965172, guid: 9d22fd9daa20f1a4b9d5132b8c840279, type: 2}
   - {fileID: 1987558906646056, guid: b90da422b6a216a4ebdf49e6242886c5, type: 2}
   destroyDelay: 10
-  meanDuration: 20
+  meanDuration: 200
   variationDuration: 5
 --- !u!114 &114247025047824968
 MonoBehaviour:

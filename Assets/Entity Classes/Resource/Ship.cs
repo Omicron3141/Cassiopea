@@ -30,7 +30,7 @@ public class Ship: SpaceObject  {
 		map = new ShipMap (70, 30);
 		cannons = new List<Cannon> ();
 		ConstructShip ("TestShip");
-		//map.printMap ();
+		map.printMap ();
 	}
 
 
@@ -76,7 +76,9 @@ public class Ship: SpaceObject  {
 				x++;
 			}
 			y--;
-		}	
+		}
+		EdgeCollider2D collider = gameObject.AddComponent<EdgeCollider2D>();
+		collider.points = map.generateTrace ().ToArray ();
 	}
 
 	private void updateOxygenDisplay() {

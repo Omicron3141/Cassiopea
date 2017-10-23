@@ -647,7 +647,7 @@ MonoBehaviour:
   - tag: asteroidfield
     eventObject: {fileID: 1448695850289280, guid: 03d240056ae12004ebc9843c2a5ebfa8,
       type: 2}
-  eventProbability: 0.01
+  eventProbability: 0.1
   currentEffect: {fileID: 0}
 --- !u!4 &479324831
 Transform:
