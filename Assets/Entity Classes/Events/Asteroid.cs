@@ -23,8 +23,9 @@ public class Asteroid : Entity {
 	}
 
 	// hit by something
-	void OnTriggerEnter2D(Collider2D other) {
-		if (other.gameObject.GetComponent<CannonRoundController> () != null) {
+	void OnCollisionEnter2D(Collision2D coll) {
+		Debug.Log ("hit");
+		if (coll.gameObject.GetComponent<CannonRoundController> () != null) {
 			health -= 20;
 			if (health < 0) {
 				GameObject d = Instantiate (destroy);
@@ -32,7 +33,13 @@ public class Asteroid : Entity {
 				d.transform.localScale = transform.localScale;
 				Destroy (gameObject);
 			}
-			Destroy (other.gameObject);
+			Destroy (coll.gameObject);
+		}else if (coll.gameObject.GetComponent<Ship> () != null && coll.gameObject.GetComponent<Ship> () == Ship.playerShip) {
+			Ship.playerShip.causeDamage (coll.contacts [0].point, 3, transform.localScale.x);
+			GameObject d = Instantiate (destroy);
+			d.transform.position = transform.position;
+			d.transform.localScale = transform.localScale;
+			Destroy (gameObject);
 		}
 	}
 }

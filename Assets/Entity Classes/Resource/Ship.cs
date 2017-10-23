@@ -30,7 +30,7 @@ public class Ship: SpaceObject  {
 		map = new ShipMap (70, 30);
 		cannons = new List<Cannon> ();
 		ConstructShip ("TestShip");
-		map.printMap ();
+		//map.printMap ();
 	}
 
 
@@ -119,5 +119,10 @@ public class Ship: SpaceObject  {
 		for (int i = 0; i < cannons.Count; i++) {
 			cannons [i].fire();
 		}
+	}
+
+	public void causeDamage (Vector2 location, float damage, float radius) {
+		location = new Vector2 ((int)location.x, (int)location.y);
+		Debug.Log (location);
 	}
 }
