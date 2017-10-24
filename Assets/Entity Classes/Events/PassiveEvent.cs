@@ -2,15 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PassiveEvent : GameEvent {
+public class PassiveEvent : MonoBehaviour {
 	public float duration;
+	public EnviromentManager env; 
 	// Use this for initialization
-	protected override void Start () {
-		base.Start ();
-	}
-
-	protected void OnEnable() {
-		eventType = GameEvent.PASSIVE;
+	protected void Start () {
+		env = EnviromentManager.instance;
 	}
 	
 	// Update is called once per frame

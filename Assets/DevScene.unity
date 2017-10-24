@@ -641,14 +641,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67a41878d75ebf440b68f51fa59f73f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  events:
-  - {fileID: 1448695850289280, guid: 03d240056ae12004ebc9843c2a5ebfa8, type: 2}
-  - {fileID: 1631932442004836, guid: ea9c1c1a47b8a407491bead88af123b7, type: 2}
-  - {fileID: 1488711799181750, guid: 34b4399025cb140f097eb31b976f6025, type: 2}
-  - {fileID: 1617604397616488, guid: 75daf1544a9064f3c8c728ba4e808a93, type: 2}
-  eventProbability: 0.5
-  meanDuration: 1
-  variationDuration: 0
+  popup: {fileID: 1338275897573284, guid: f88ff605cc419ff41ad03b876e745f50, type: 2}
+  possibleEvents: []
+  passiveEvents:
+  - tag: asteroidfield
+    eventObject: {fileID: 1448695850289280, guid: 03d240056ae12004ebc9843c2a5ebfa8,
+      type: 2}
+  eventProbability: 0.1
+  currentEffect: {fileID: 0}
 --- !u!4 &479324831
 Transform:
   m_ObjectHideFlags: 0
@@ -1771,7 +1771,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1356375710
+  randomSeed: -1113412122
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -5130,6 +5130,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2116412843}
   - component: {fileID: 2116412842}
+  - component: {fileID: 2116412844}
   m_Layer: 0
   m_Name: PlayerShip
   m_TagString: Untagged
@@ -5162,6 +5163,7 @@ MonoBehaviour:
   - {fileID: 1903949294013466, guid: c975f665ff72a4149a5dcfe0aae3cfcd, type: 2}
   - {fileID: 1373535442641126, guid: 2ce7938fc8477e942887964cffe844d8, type: 2}
   - {fileID: 1575220686466098, guid: 0e43fa01957603d4984902b0eb51a3e8, type: 2}
+  - {fileID: 1666959500310080, guid: d477f5b1488eabd47a692188a39e0eef, type: 2}
   oxygenDisplay: {fileID: 2123891320}
   hullDisplay: {fileID: 513101152}
   foodDisplay: {fileID: 233597507}
@@ -5184,6 +5186,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &2116412844
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2116412841}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1000000
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &2123891318
 GameObject:
   m_ObjectHideFlags: 0

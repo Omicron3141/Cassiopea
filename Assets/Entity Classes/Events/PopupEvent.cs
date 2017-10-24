@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PopupEvent : GameEvent {
+public class PopupEvent : MonoBehaviour {
 
 	// Use this for initialization
-	protected override void Start () {
-		base.Start ();
+	protected void Start () {
+		Time.timeScale = 0;
 	}
 
-	protected void OnEnable() {
-		eventType = GameEvent.POPUP;
+
+	public void endEvent() {
+		Time.timeScale = 1;
+		Destroy (gameObject);
 	}
 
 	// Update is called once per frame

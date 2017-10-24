@@ -62,6 +62,11 @@ public class ShipMap{
 		return (thingAt (x, y) >= 0);
 	}
 
+	// is this inside the ship proper
+	public bool isInShip (Vector2 pos) {
+		return (thingAt ((int)pos.x, (int)pos.y) >= 0);
+	}
+
 	// can crew people walk here
 	public bool isPassable (int x, int y) {
 		return (thingAt (x, y) == passable);
@@ -177,5 +182,45 @@ public class ShipMap{
 			map += "\n";
 		}
 		Debug.Log(map);
+	}
+
+	public List<Vector2> generateTrace() {
+		Vector2 direction = Vector2.up;
+		Vector2 position = Vector2.zero;
+		List<Vector2> list = new List<Vector2> ();
+		while (!isInShip (position)) {
+			position = position + Vector2.up + Vector2.right;
+		}
+		list.Add (position);
+		int i = 150;
+		do {
+			if (isInShip (position + direction)) {
+				if (!isInShip (position + direction + Left (direction))) {
+					position = position + direction;
+					list.Add (position);
+				} else {
+					position = position + direction;
+					list.Add (position);
+					direction = Left (direction);
+				}
+			} else {
+				direction = Left (Left (Left (direction)));
+			}
+			//Debug.Log (position + " " + direction);
+			i-=1;
+		} while (position != list [0] && i>0);
+		return list;
+	}
+
+	private Vector2 Left(Vector2 dir) {
+		if (dir == Vector2.up) {
+			return Vector2.left;
+		} else if (dir == Vector2.left) {
+			return Vector2.down;
+		} else if (dir == Vector2.down) {
+			return Vector2.right;
+		} else {
+			return Vector2.up;
+		}
 	}
 }

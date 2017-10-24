@@ -76,7 +76,9 @@ public class Ship: SpaceObject  {
 				x++;
 			}
 			y--;
-		}	
+		}
+		EdgeCollider2D collider = gameObject.AddComponent<EdgeCollider2D>();
+		collider.points = map.generateTrace ().ToArray ();
 	}
 
 	private void updateOxygenDisplay() {
@@ -117,5 +119,10 @@ public class Ship: SpaceObject  {
 		for (int i = 0; i < cannons.Count; i++) {
 			cannons [i].fire();
 		}
+	}
+
+	public void causeDamage (Vector2 location, float damage, float radius) {
+		location = new Vector2 ((int)location.x, (int)location.y);
+		Debug.Log (location);
 	}
 }

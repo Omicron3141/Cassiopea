@@ -118,6 +118,7 @@ MonoBehaviour:
   humanReadableName: engine
   maintenancePriority: 0
   broken: 0
+  manned: 0
   mannable: 0
 --- !u!198 &198072835452106578
 ParticleSystem:
