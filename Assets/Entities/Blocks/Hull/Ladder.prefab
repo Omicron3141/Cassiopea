@@ -54,6 +54,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 7
   passable: 1
+  size: {x: 1, y: 1}
+  maxhealth: 60
+  health: 60
 --- !u!212 &212765683485840224
 SpriteRenderer:
   m_ObjectHideFlags: 1

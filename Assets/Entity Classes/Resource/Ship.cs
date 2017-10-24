@@ -8,6 +8,7 @@ public class Ship: SpaceObject  {
 	public static Ship playerShip;
 	public bool isPlayerShip = false;
 	public GameObject[] Blocks;
+	public List<ShipBlock> shipBlocks;
 	//the Id of the ladder block for pathfinding
 	int ladderID = 7;
 
@@ -47,6 +48,7 @@ public class Ship: SpaceObject  {
 		string[] lines = file.text.Split ("\n" [0]);
 		int height = lines.Length;
 		int y = height;
+		shipBlocks = new List<ShipBlock> ();
 		foreach (string l in lines) {
 			string line = l.Trim ();
 			string[] columns = line.Split ("," [0]);
@@ -71,6 +73,7 @@ public class Ship: SpaceObject  {
 						GameObject thisBlock = Instantiate (block);
 						thisBlock.transform.SetParent (transform);
 						thisBlock.transform.localPosition = new Vector3 (x * 1f, y * 1f, -1f*0.00001f*i);
+						shipBlocks.Add(thisBlock.GetComponent<ShipBlock>());
 					}
 				}
 				x++;
@@ -123,6 +126,19 @@ public class Ship: SpaceObject  {
 
 	public void causeDamage (Vector2 location, float damage, float radius) {
 		location = new Vector2 ((int)location.x, (int)location.y);
-		Debug.Log (location);
+		foreach (ShipBlock b in shipBlocks) {
+			float dist = 0;
+			Vector2 pos = new Vector2 (b.gameObject.transform.position.x, b.gameObject.transform.position.y);
+			if (b.size.sqrMagnitude > 1) {
+				dist = (pos + b.size / 2 - location).magnitude;
+				dist -= b.size.magnitude / 2;
+			} else {
+				dist = (pos - location).magnitude;
+			}
+			if (dist < radius) {
+				Debug.Log (dist);
+				b.changeHealth (-1 * damage * (radius - dist) / radius);
+			}
+		}
 	}
 }

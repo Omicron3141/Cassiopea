@@ -223,6 +223,8 @@ MonoBehaviour:
   id: 9
   passable: 0
   size: {x: 1, y: 3}
+  maxhealth: 300
+  health: 100
 --- !u!212 &212161673045460904
 SpriteRenderer:
   m_ObjectHideFlags: 1

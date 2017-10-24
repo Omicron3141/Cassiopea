@@ -647,7 +647,7 @@ MonoBehaviour:
   - tag: asteroidfield
     eventObject: {fileID: 1448695850289280, guid: 03d240056ae12004ebc9843c2a5ebfa8,
       type: 2}
-  eventProbability: 0.1
+  eventProbability: 1
   currentEffect: {fileID: 0}
 --- !u!4 &479324831
 Transform:
@@ -5164,6 +5164,7 @@ MonoBehaviour:
   - {fileID: 1373535442641126, guid: 2ce7938fc8477e942887964cffe844d8, type: 2}
   - {fileID: 1575220686466098, guid: 0e43fa01957603d4984902b0eb51a3e8, type: 2}
   - {fileID: 1666959500310080, guid: d477f5b1488eabd47a692188a39e0eef, type: 2}
+  shipBlocks: []
   oxygenDisplay: {fileID: 2123891320}
   hullDisplay: {fileID: 513101152}
   foodDisplay: {fileID: 233597507}
@@ -5193,7 +5194,7 @@ Rigidbody2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2116412841}
-  m_BodyType: 0
+  m_BodyType: 2
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
