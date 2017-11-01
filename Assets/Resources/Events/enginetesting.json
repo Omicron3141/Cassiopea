@@ -2,7 +2,7 @@
 	[{"tag":"et-0",
 	"title": "Engine Upgrades", 
 	"text": "A crew member has come up with an interesting proposal. They believe that with some work, we can reconfigure our engines to be more fuel efficient. There is some risk, however, and they want to know if they should proceed.", 
-	"weight": 1.5, 
+	"weight": 0.5, 
 	"buttons":[{"text": "Go for it!", "function": "randomSelect", "paramaters": ["0.5", "1", "loadEvent", "et-1", "loadEvent", "et-2"]},
 		   {"text": "Run a small-scale test first. (-5 fuel)", "function": "And", "paramaters": ["2", "changeResource", "fuel", "-5", "loadEvent", "et-3"]},
 		   {"text": "It's too risky. Stay the course.", "function": "", "paramaters": []}]},

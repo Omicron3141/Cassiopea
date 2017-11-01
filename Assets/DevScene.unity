@@ -647,7 +647,7 @@ MonoBehaviour:
   - tag: asteroidfield
     eventObject: {fileID: 1448695850289280, guid: 03d240056ae12004ebc9843c2a5ebfa8,
       type: 2}
-  eventProbability: 0.1
+  eventProbability: 0.5
   currentEffect: {fileID: 0}
 --- !u!4 &479324831
 Transform:
@@ -673,7 +673,7 @@ GameObject:
   - component: {fileID: 513101153}
   - component: {fileID: 513101152}
   m_Layer: 5
-  m_Name: Hull
+  m_Name: Metal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -747,7 +747,7 @@ GameObject:
   - component: {fileID: 550411125}
   - component: {fileID: 550411124}
   m_Layer: 5
-  m_Name: HullSymbol
+  m_Name: MetalSymbol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1771,7 +1771,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1113412122
+  randomSeed: -2036797587
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -5165,7 +5165,7 @@ MonoBehaviour:
   - {fileID: 1575220686466098, guid: 0e43fa01957603d4984902b0eb51a3e8, type: 2}
   - {fileID: 1666959500310080, guid: d477f5b1488eabd47a692188a39e0eef, type: 2}
   oxygenDisplay: {fileID: 2123891320}
-  hullDisplay: {fileID: 513101152}
+  metalDisplay: {fileID: 513101152}
   foodDisplay: {fileID: 233597507}
   fuelDisplay: {fileID: 1364648695}
   cannons: []

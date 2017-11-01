@@ -127,6 +127,12 @@ public class CrewManager: MonoBehaviour {
 			text += " Name: " + selectedCrew.crewName + "\n";
 			text += " Age: " + selectedCrew.age + "\n";
 			text += " Profession: " + selectedCrew.profession + "\n";
+			text += " Pilot Level: " + selectedCrew.pilotLevel + "\n";
+			text += " Navigation Level: " + selectedCrew.navigationLevel + "\n";
+			text += " Engineer Level: " + selectedCrew.engineerLevel + "\n";
+			text += " Science Level: " + selectedCrew.scienceLevel + "\n";
+			text += " Weapons Level: " + selectedCrew.weaponsLevel + "\n";
+			text += " Personal Combat Level: " + selectedCrew.personalCombatLevel + "\n";
 			text += " Currently: " + selectedCrew.jobDesc() + "\n";
 		} 
 

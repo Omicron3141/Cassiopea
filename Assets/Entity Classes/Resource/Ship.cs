@@ -14,12 +14,14 @@ public class Ship: SpaceObject  {
 	public ShipMap map;
 	public Oxygen oxygen = new Oxygen();
 	public Food food = new Food(100);
-	public HullIntegrity hull = new HullIntegrity (100);
+	public Metal metal = new Metal(100);
 	public Fuel fuel = new Fuel(100);
+	public Water water = new Water(100);
 	public Text oxygenDisplay;
-	public Text hullDisplay;
+	public Text metalDisplay;
 	public Text foodDisplay;
 	public Text fuelDisplay;
+	//public Text waterDisplay;
 
 	public List<Cannon> cannons;
 
@@ -37,8 +39,9 @@ public class Ship: SpaceObject  {
 	void Update () {
 		updateOxygenDisplay ();
 		updateFoodDisplay ();
-		updateHullDisplay ();
+		updateMetalDisplay ();
 		updateFuelDisplay ();
+		//updateWaterDisplay ();
 	}
 
 
@@ -91,15 +94,20 @@ public class Ship: SpaceObject  {
 		foodDisplay.text = text;
 	}
 
-	private void updateHullDisplay() {
-		string text = this.hull.currentHullIntegrity.ToString () + " / " + this.hull.maximumHullIntegrity.ToString ();
-		hullDisplay.text = text;
+	private void updateMetalDisplay() {
+		string text = this.metal.amount.ToString () + " / " + this.metal.maxAmount.ToString ();
+		metalDisplay.text = text;
 	}
 
 	private void updateFuelDisplay() {
 		string text = this.fuel.amount.ToString () + " / " + this.fuel.maximumFuelStorage.ToString ();
 		fuelDisplay.text = text;
 	}
+
+	//private void updateWaterDisplay() {
+		//string text = this.water.amount.ToString () + " / " + this.water.maxAmount.ToString ();
+		//waterDisplay.text = text;
+	//}
 
 	public bool isWithinShip(Vector3 pos) {
 		return map.isWithinBounds (pos);

@@ -1,0 +1,20 @@
+{"events": 
+    [{"tag":"te-0",
+    "title": "Traders Encountered", 
+    "text": "We are receiving a hail from a nearby ship. They claim to be traders and would like to trade with us. Should we dock with them?", 
+    "weight": 1.0, 
+    "buttons":[{"text": "Let's see what they have to offer.", "function": "randomSelect", "paramaters": ["0.95", "1", "loadEvent", "te-1", "loadEvent", "te-2"]},
+           {"text": "We don't need anything from them.", "function": "", "paramaters": []}]},
+    {"tag":"te-1",
+    "title": "Trade", 
+    "text": "The traders are friendly enough. It looks like they're coming back from an ocean world and have plenty of hydrogen fuel available. However, they're running low on food, so they're willing to offer us a good deal if we trade any food for their fuel.\n\n\nWe could trade 5 Food for 10 Fuel, 10 Food for 20 Fuel, or make no trade.", 
+    "weight": 0.0, 
+    "buttons":[{"text": "Let's make a small trade.", "function": "And", "paramaters": ["2", "changeResource", "food", "-5", "changeResource", "fuel", "10"]},
+            {"text": "Let's make a large trade.", "function": "And", "paramaters": ["2", "changeResource", "food", "-10", "changeResource", "fuel", "20"]},
+            {"text": "We have no need to trade with them.", "function": "", "paramaters": []}]},
+    {"tag":"te-2",
+    "title": "Surprise Attack!", 
+    "text": "It turns out that the traders were actually raiders. Luckily, they only stole some of our resources before fleeing the ship.\n\n\nWe lose 10 Food and 10 Fuel.", 
+    "weight": 0.0, 
+    "buttons":[{"text": "At least no one was hurt.", "function": "And", "paramaters": ["2", "changeResource", "food", "-10", "changeResource", "metal", "-10"]}]}
+]}

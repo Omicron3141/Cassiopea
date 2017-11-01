@@ -167,7 +167,7 @@ public class EnviromentManager: MonoBehaviour {
 	}
 
 	// Modifies the ship resources. Usage:
-	// "changeResource x y" where x is the resource to change ("food", "fuel", "oxygen", or "hull") and y is the integer amount to change by.
+	// "changeResource x y" where x is the resource to change ("food", "fuel", "oxygen", "metal", or "water") and y is the integer amount to change by.
 	void changeResource (string resource, int amount) {
 		if (resource == "food") {
 			if ((Ship.playerShip.food.currentFood + amount) > Ship.playerShip.food.maximumFoodStorage) {
@@ -177,7 +177,9 @@ public class EnviromentManager: MonoBehaviour {
 			} else{
 				Ship.playerShip.food.currentFood += amount;
 			}
-		} else if (resource == "fuel") {
+		} 
+
+		else if (resource == "fuel") {
 			if ((Ship.playerShip.fuel.amount + amount) > Ship.playerShip.fuel.maximumFuelStorage) {
 				Ship.playerShip.fuel.amount = Ship.playerShip.fuel.maximumFuelStorage;
 			} else if ((Ship.playerShip.fuel.amount + amount) < 0) {
@@ -185,7 +187,9 @@ public class EnviromentManager: MonoBehaviour {
 			} else{
 				Ship.playerShip.fuel.amount += amount;
 			}
-		} else if (resource == "oxygen") {
+		} 
+
+		else if (resource == "oxygen") {
 			if ((Ship.playerShip.oxygen.percentage + amount) > 100) {
 				Ship.playerShip.oxygen.percentage = 100;
 			} else if ((Ship.playerShip.oxygen.percentage + amount) < 0) {
@@ -193,13 +197,73 @@ public class EnviromentManager: MonoBehaviour {
 			} else{
 				Ship.playerShip.oxygen.percentage += amount;
 			}
-		}else if (resource == "hull") {
-			if ((Ship.playerShip.hull.currentHullIntegrity + amount) > Ship.playerShip.hull.maximumHullIntegrity) {
-				Ship.playerShip.hull.currentHullIntegrity = Ship.playerShip.hull.maximumHullIntegrity;
-			} else if ((Ship.playerShip.hull.currentHullIntegrity + amount) < 0) {
-				Ship.playerShip.hull.currentHullIntegrity = 0;
+		}
+
+		else if (resource == "metal") {
+			if ((Ship.playerShip.metal.amount + amount) > Ship.playerShip.metal.maxAmount) {
+				Ship.playerShip.metal.amount = Ship.playerShip.metal.maxAmount;
+			} else if ((Ship.playerShip.metal.amount + amount) < 0) {
+				Ship.playerShip.metal.amount = 0;
 			} else{
-				Ship.playerShip.hull.currentHullIntegrity += amount;
+				Ship.playerShip.metal.amount += amount;
+			}
+		}
+
+		else if (resource == "water") {
+			if ((Ship.playerShip.water.amount + amount) > Ship.playerShip.water.maxAmount) {
+				Ship.playerShip.water.amount = Ship.playerShip.water.maxAmount;
+			} 
+
+			else if ((Ship.playerShip.water.amount + amount) < 0) {
+				Ship.playerShip.water.amount = 0;
+			} 
+
+			else{
+				Ship.playerShip.water.amount += amount;
+			}
+		}
+	}
+
+	// Modifies the ship's maximum resource storage. Usage:
+	// "changeResourceStorage x y" where x is the resource to change ("food", "fuel", "metal", or "water") and y is the integer amount to change by.
+	void changeResourceStorage (string resource, int amount) {
+		if (resource == "food") {
+			if ((Ship.playerShip.food.maximumFoodStorage + amount) < 0) {
+				Ship.playerShip.food.maximumFoodStorage = 0;
+			} 
+
+			else {
+				Ship.playerShip.food.maximumFoodStorage += amount;
+			}
+		} 
+
+		else if (resource == "fuel") {
+			if ((Ship.playerShip.fuel.maximumFuelStorage + amount) < 0) {
+				Ship.playerShip.fuel.maximumFuelStorage = 0;
+			} 
+
+			else {
+				Ship.playerShip.fuel.maximumFuelStorage += amount;
+			}
+		} 
+
+		else if (resource == "metal") {
+			if ((Ship.playerShip.metal.maxAmount + amount) < 0) {
+				Ship.playerShip.metal.maxAmount = 0;
+			} 
+
+			else {
+				Ship.playerShip.metal.maxAmount += amount;
+			}
+		}
+
+		else if (resource == "water") {
+			if ((Ship.playerShip.water.maxAmount + amount) < 0) {
+				Ship.playerShip.water.maxAmount = 0;
+			} 
+
+			else {
+				Ship.playerShip.water.maxAmount += amount;
 			}
 		}
 	}
