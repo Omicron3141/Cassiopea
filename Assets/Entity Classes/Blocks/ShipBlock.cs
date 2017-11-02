@@ -9,6 +9,8 @@ public class ShipBlock: Entity  {
 	public float maxhealth = 100;
 	public float health;
 	private Job fixjob = null;
+	public Vector2 impassibleoffset = Vector2.zero;
+	public Vector2 impassibleextent = Vector2.zero;
 	CrewManager cm;
 
 	public void Start() {

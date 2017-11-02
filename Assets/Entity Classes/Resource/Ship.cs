@@ -31,7 +31,7 @@ public class Ship: SpaceObject  {
 		map = new ShipMap (70, 30);
 		cannons = new List<Cannon> ();
 		ConstructShip ("TestShip");
-		//map.printMap ();
+		map.printMap ();
 	}
 
 
@@ -64,7 +64,13 @@ public class Ship: SpaceObject  {
 								if (i == ladderID) {
 									map.setThing (ix, iy, ShipMap.ladder);
 								} else if (block.GetComponent<ShipBlock> ().passable) {
-									map.setThing (ix, iy, ShipMap.passable);
+									float xoff = ix - x - block.GetComponent<ShipBlock> ().impassibleoffset.x;
+									float yoff = iy - y - block.GetComponent<ShipBlock> ().impassibleoffset.y;
+									if ((xoff < block.GetComponent<ShipBlock> ().impassibleextent.x) && (xoff >= 0) && (yoff < block.GetComponent<ShipBlock> ().impassibleextent.y) && (yoff >= 0)) {
+										map.setThing (ix, iy, ShipMap.impassible);
+									} else {
+										map.setThing (ix, iy, ShipMap.passable);
+									}
 								} else {
 									map.setThing (ix, iy, ShipMap.impassible);
 								}
