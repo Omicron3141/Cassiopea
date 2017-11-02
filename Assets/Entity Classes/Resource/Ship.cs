@@ -72,7 +72,7 @@ public class Ship: SpaceObject  {
 						}
 						GameObject thisBlock = Instantiate (block);
 						thisBlock.transform.SetParent (transform);
-						thisBlock.transform.localPosition = new Vector3 (x * 1f, y * 1f, -1f*0.00001f*i);
+						thisBlock.transform.localPosition = new Vector3 (x * 1f, y * 1f, 1f*0.00001f*i);
 						shipBlocks.Add(thisBlock.GetComponent<ShipBlock>());
 					}
 				}
@@ -136,7 +136,6 @@ public class Ship: SpaceObject  {
 				dist = (pos - location).magnitude;
 			}
 			if (dist < radius) {
-				Debug.Log (dist);
 				b.changeHealth (-1 * damage * (radius - dist) / radius);
 			}
 		}

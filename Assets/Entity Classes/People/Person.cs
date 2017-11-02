@@ -84,11 +84,14 @@ public class Person: Entity  {
 
 
 	void Update () {
+		if (currentJob == null) {
+			state = IDLE;
+		}
 		if (state == IDLE) {
 			// are we basically at our target?
 			if (Mathf.Abs ((target - transform.localPosition).magnitude) < speed * Time.deltaTime) {
 				// move to our target
-				transform.localPosition = target;
+				transform.localPosition = new Vector3(target.x, target.y, 0f);
 				// get a new wander point
 				target = Ship.playerShip.map.getNewWanderTarget (transform.localPosition);
 			} else {
@@ -116,7 +119,7 @@ public class Person: Entity  {
 			// if we are basically at our target
 			if (Mathf.Abs ((target - transform.localPosition).magnitude) < speed * Time.deltaTime) {
 				// go to the target
-				transform.localPosition = target;
+				transform.localPosition = new Vector3(target.x, target.y, 0f);
 				// was this our last waypoint
 				if (path.Count == 0) {
 					// start doing the job
@@ -166,10 +169,10 @@ public class Person: Entity  {
 				currentJob.duration -= Time.deltaTime;
 				// if we're done
 				if (currentJob.duration < 0) {
-					manager.UnassignJob (this, currentJob);
 					if (currentJob.onComplete != null) {
 						currentJob.onComplete.Invoke ();
 					}
+					manager.UnassignJob (this, currentJob);
 					currentJob = null;
 					state = IDLE;
 					transform.Find ("Hands").gameObject.SetActive (false);

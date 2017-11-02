@@ -15,7 +15,7 @@ public class CrewManager: MonoBehaviour {
 	private List<Person> AssignedCrewMembers = new List<Person> ();
 
 	// List of length priorities, where each entry is a queue of jobs
-	private List<Queue<Job>> UnassignedJobs = new List<Queue<Job>> ();
+	private List<List<Job>> UnassignedJobs = new List<List<Job>> ();
 
 	private List<List<Job>> AssignedJobs = new List<List<Job>> ();
 
@@ -36,7 +36,7 @@ public class CrewManager: MonoBehaviour {
 
 		// Create the empty lists and queues for jobs
 		for (int i = 0; i < priorities; i++) {
-			UnassignedJobs.Add(new Queue<Job> ());
+			UnassignedJobs.Add(new List<Job> ());
 			AssignedJobs.Add(new List<Job> ());
 		}
 
@@ -52,7 +52,8 @@ public class CrewManager: MonoBehaviour {
 				// Are there any free crew
 				if (UnassignedCrewMembers.Count > 0) {
 					// Assign it to that crew
-					Job currentJob = UnassignedJobs [priority].Dequeue ();
+					Job currentJob = UnassignedJobs [priority][0];
+					UnassignedJobs [priority].RemoveAt (0);
 					UnassignedCrewMembers [0].assignJob (currentJob);
 					currentJob.assignedCrew = UnassignedCrewMembers [0];
 					AssignedCrewMembers.Add (UnassignedCrewMembers [0]);
@@ -71,11 +72,12 @@ public class CrewManager: MonoBehaviour {
 								AssignedJobs [priorityToStealFrom].RemoveAt (0);
 								Person p = oldJob.assignedCrew;
 								oldJob.assignedCrew = null;
-								Job newJob = UnassignedJobs [priority].Dequeue ();
+								Job newJob = UnassignedJobs [priority][0];
+								UnassignedJobs [priority].RemoveAt (0);
 								p.assignJob (newJob);
 								newJob.assignedCrew = p;
 								AssignedJobs [priority].Add (newJob);
-								UnassignedJobs [priorityToStealFrom].Enqueue (oldJob);
+								UnassignedJobs [priorityToStealFrom].Add (oldJob);
 								updateJobsUI ();
 							}
 						}
@@ -96,6 +98,7 @@ public class CrewManager: MonoBehaviour {
 	// Deletes the job, and makes the crew member unassigned again
 	public void UnassignJob(Person p, Job j){
 		AssignedJobs[j.priority].Remove(j);
+		p.currentJob = null;
 		AssignedCrewMembers.Remove (p);
 		UnassignedCrewMembers.Add (p);
 		updateJobsUI ();
@@ -103,8 +106,15 @@ public class CrewManager: MonoBehaviour {
 
 	// Add a new job to the unassigned queues
 	public void addNewJob(Job j){
-		UnassignedJobs[j.priority].Enqueue(j);
+		UnassignedJobs[j.priority].Add(j);
 		updateJobsUI ();
+	}
+
+	// recall an assigned or unassigned job
+	public void recallJob(Job j){
+		if (!UnassignedJobs [j.priority].Remove (j)) {
+			UnassignJob (j.assignedCrew, j);
+		}
 	}
 		
 	private void updateJobsUI() {
