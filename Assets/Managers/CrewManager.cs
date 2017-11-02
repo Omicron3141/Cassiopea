@@ -45,6 +45,70 @@ public class CrewManager: MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		//assignJobsByJobs();
+		assignJobsByCrew();
+
+		updateTraitsUI ();
+
+	}
+
+	// try to find the best job for each crew member
+	void assignJobsByCrew() {
+		for (int c = 0; c < UnassignedCrewMembers.Count; c++) {
+			Person crew = UnassignedCrewMembers [c];
+			Vector3 crewloc = crew.gameObject.transform.localPosition;
+			float mindist = Mathf.Infinity;
+			Job minjob = null;
+			int priority = 0;
+			while (priority < priorities && UnassignedJobs [priority].Count == 0) {
+				priority++;
+			}
+			if (UnassignedJobs [priority].Count > 0) {
+				foreach (Job j in UnassignedJobs[priority]) {
+					if ((j.Location - crewloc).magnitude < mindist) {
+						mindist = (j.Location - crewloc).magnitude;
+						minjob = j;
+					}
+				}
+				UnassignedJobs [priority].Remove(minjob);
+				crew.assignJob (minjob);
+				minjob.assignedCrew = crew;
+				AssignedCrewMembers.Add (crew);
+				UnassignedCrewMembers.Remove (crew);
+				AssignedJobs[priority].Add (minjob);
+			}
+		}
+		// see if already assigned crew have something better to do
+		for (int c = 0; c < AssignedCrewMembers.Count; c++) {
+			Person crew = AssignedCrewMembers [c];
+			Vector3 crewloc = crew.gameObject.transform.localPosition;
+			float mindist = Mathf.Infinity;
+			Job minjob = null;
+			int priority = 0;
+			while (priority < crew.currentJob.priority-1 && UnassignedJobs [priority].Count == 0) {
+				priority++;
+			}
+			if (priority >= 0 && UnassignedJobs [priority].Count > 0) {
+				foreach (Job j in UnassignedJobs[priority]) {
+					if ((j.Location - crewloc).magnitude < mindist) {
+						mindist = (j.Location - crewloc).magnitude;
+						minjob = j;
+					}
+				}
+				Job oldJob = crew.currentJob;
+				AssignedJobs [oldJob.priority].Remove(oldJob);
+				oldJob.assignedCrew = null;
+				UnassignedJobs [priority].Remove(minjob);
+				crew.assignJob (minjob);
+				minjob.assignedCrew = crew;
+				AssignedJobs [priority].Add (minjob);
+				UnassignedJobs [oldJob.priority].Add (oldJob);
+			}
+		}
+	}
+
+	// try to find the best crew member for each job.
+	void assignJobsByJobs() {
 		// Go through each priority level
 		for (int priority = 0; priority < priorities; priority++) {
 			// If there is an unassigned job of this priority, try to assign
@@ -59,7 +123,7 @@ public class CrewManager: MonoBehaviour {
 					AssignedCrewMembers.Add (UnassignedCrewMembers [0]);
 					UnassignedCrewMembers.RemoveAt (0);
 					AssignedJobs[priority].Add (currentJob);
-				// there are no available crew, check if this is the lowest priority
+					// there are no available crew, check if this is the lowest priority
 				} else if (priority < priorities-1) {
 					// if this is not the lowest-priority list, that is, if there are lower priority lists.
 					// search through all lower-priority lists, starting with the lowest priority
@@ -67,7 +131,7 @@ public class CrewManager: MonoBehaviour {
 						// if there's a job we can steal from
 						if (AssignedJobs [priorityToStealFrom].Count > 0) {
 							if (UnassignedJobs [priority].Count > 0) {
-								
+
 								Job oldJob = AssignedJobs [priorityToStealFrom] [0];
 								AssignedJobs [priorityToStealFrom].RemoveAt (0);
 								Person p = oldJob.assignedCrew;
@@ -85,9 +149,6 @@ public class CrewManager: MonoBehaviour {
 				}
 			}
 		}
-
-		updateTraitsUI ();
-
 	}
 
 	// Add a new crew member to the lists
