@@ -24,6 +24,7 @@ public class Console : Entity {
 			j.priority = 2;
 			j.onStart = NowManned;
 			j.onInterrupt = NowUnmanned;
+			j.tool = Job.HANDS;
 			crewManager.addNewJob (j);
 		}
 	}
@@ -38,6 +39,7 @@ public class Console : Entity {
 			j.desc = "Perform maintenance on " + humanReadableName + " at";
 			j.onComplete = MaintenanceComplete;
 			j.priority = maintenancePriority;
+			j.tool = Job.HANDS;
 			crewManager.addNewJob(j);
 			broken = true;
 		}

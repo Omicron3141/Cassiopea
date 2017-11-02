@@ -27,6 +27,7 @@ public class ShipBlock: Entity  {
 			fixjob.desc = "Fix block at";
 			fixjob.onComplete = repairComplete;
 			fixjob.duration = (1 - health / maxhealth) * size.x * size.y;
+			fixjob.tool = Job.WELD;
 			cm.addNewJob (fixjob);		
 		} else {
 			fixjob.duration = (1 - health / maxhealth) * size.x * size.y;

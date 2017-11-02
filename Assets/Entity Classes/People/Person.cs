@@ -124,12 +124,16 @@ public class Person: Entity  {
 				if (path.Count == 0) {
 					// start doing the job
 					if (currentJob.duration > 0 || currentJob.permenant) {
-						transform.Find ("Hands").gameObject.SetActive (true);
 						float facing = -1f;
 						if (currentJob.AssignerLocation.x - currentJob.Location.x < 0) {
 							facing = 1f;
 						}
 						transform.localScale = new Vector3 (facing, 1f, 1f);
+						if (currentJob.tool == Job.HANDS) {
+							transform.Find ("Hands").gameObject.SetActive (true);
+						}else if (currentJob.tool == Job.WELD) {
+							transform.Find ("Welder").gameObject.SetActive (true);
+						}
 					}
 					if (currentJob.onStart != null) {
 						currentJob.onStart.Invoke ();
@@ -176,6 +180,7 @@ public class Person: Entity  {
 					currentJob = null;
 					state = IDLE;
 					transform.Find ("Hands").gameObject.SetActive (false);
+					transform.Find ("Welder").gameObject.SetActive (false);
 
 				}
 			}
@@ -192,6 +197,7 @@ public class Person: Entity  {
 		target = path.Dequeue ();
 		state = MOVINGTOJOB;
 		transform.Find ("Hands").gameObject.SetActive (false);
+		transform.Find ("Welder").gameObject.SetActive (false);
 		if (currentJob.onReceive != null) {
 			currentJob.onReceive.Invoke ();
 		}
