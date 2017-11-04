@@ -9,6 +9,7 @@ public class Ship: SpaceObject  {
 	public bool isPlayerShip = false;
 	public GameObject[] Blocks;
 	public List<ShipBlock> shipBlocks;
+	public float bestDodgeChance = 0.5f;
 	//the Id of the ladder block for pathfinding
 	int ladderID = 7;
 
@@ -23,6 +24,9 @@ public class Ship: SpaceObject  {
 	public Text fuelDisplay;
 
 	public List<Cannon> cannons;
+	public List<Engine> engines;
+	public List<PilotConsole> pilotconsoles;
+
 
 	void Awake () {
 		if (playerShip == null && isPlayerShip) {
@@ -118,6 +122,14 @@ public class Ship: SpaceObject  {
 		cannons.Add (c);
 	}
 
+	public void addEngine(Engine e){
+		engines.Add (e);
+	}
+
+	public void addPilotConsole(PilotConsole p){
+		pilotconsoles.Add (p);
+	}
+
 	public void target(Vector3 target) {
 		for (int i = 0; i < cannons.Count; i++) {
 			cannons [i].target (target);
@@ -145,5 +157,20 @@ public class Ship: SpaceObject  {
 				b.changeHealth (-1 * damage * (radius - dist) / radius);
 			}
 		}
+	}
+
+	public bool checkDodge () {
+		float chance = bestDodgeChance;
+		foreach (Engine e in engines) {
+			if (e.cons.broken) {
+				chance -= 0.1f;
+			}
+		}
+		foreach (PilotConsole p in pilotconsoles) {
+			if (p.console.manned) {
+				chance -= 0.3f;
+			}
+		}
+		return (UnityEngine.Random.value < chance);
 	}
 }
