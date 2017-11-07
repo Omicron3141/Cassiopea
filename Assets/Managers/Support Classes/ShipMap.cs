@@ -64,17 +64,26 @@ public class ShipMap{
 
 	// is this inside the ship proper
 	public bool isInShip (Vector2 pos) {
-		return (thingAt ((int)pos.x, (int)pos.y) >= 0);
+		return isInShip ((int)pos.x, (int)pos.y);
 	}
 
 	// can crew people walk here
 	public bool isPassable (int x, int y) {
 		return (thingAt (x, y) == passable);
 	}
+	// can crew people walk here
+	public bool isPassable (Vector2 pos) {
+		return isPassable ((int)pos.x, (int)pos.y);
+	}
 
 	// is the thing here a ladder
 	public bool isLadder (int x, int y) {
 		return (thingAt (x, y) == ladder);
+	}
+
+	// can crew people walk here
+	public bool isLadder (Vector2 pos) {
+		return isLadder ((int)pos.x, (int)pos.y);
 	}
 
 	// takes in a point and follows it down to the floor below that place
@@ -86,6 +95,11 @@ public class ShipMap{
 		}
 		return new Vector3 (x, y, pos.z);
 	}
+
+	public Vector3 onFloor (Vector2 pos) {
+		return onFloor (new Vector3 (pos.x, pos.y, 0f));
+	}
+
 
 	// Finds a path from the specified startpoint to endpoints. Returns a queue of waypoints
 	public Queue<Vector3> pathfind(Vector3 startpos, Vector3 endpos) {
@@ -222,5 +236,33 @@ public class ShipMap{
 		} else {
 			return Vector2.up;
 		}
+	}
+
+	public Vector3 nearestInsideFloorSpot (Vector3 p) {
+		Vector3 pos = new Vector3 (p.x, p.y, 0f);
+		Vector2 center = new Vector2 (width / 2, height / 2);
+		float xdir = Mathf.Sign (center.x - pos.x);
+		int timeout = 20;
+		while (pos.x != center.x && timeout > 0) {
+			timeout -= 1;
+			if (isPassable (pos)) {
+				return onFloor (pos);
+			}else if (isPassable (pos + Vector3.up)) {
+				return onFloor (pos + Vector3.up);
+			}else if (isPassable (pos + Vector3.down)) {
+				return onFloor (pos + Vector3.down);
+			}
+
+			pos += new Vector3 (xdir, 0f, 0f);
+
+		}
+		if (isPassable (pos)) {
+			return onFloor (pos);
+		}else if (isPassable (pos + Vector3.up)) {
+			return onFloor (pos + Vector3.up);
+		}else if (isPassable (pos + Vector3.down)) {
+			return onFloor (pos + Vector3.down);
+		}
+		return onFloor (pos);
 	}
 }

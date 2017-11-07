@@ -34,11 +34,15 @@ public class Asteroid : Entity {
 			}
 			Destroy (coll.gameObject);
 		}else if (coll.gameObject.GetComponent<Ship> () != null && coll.gameObject.GetComponent<Ship> () == Ship.playerShip) {
-			Ship.playerShip.causeDamage (coll.contacts [0].point, 15*transform.localScale.x, 3*transform.localScale.x);
-			GameObject d = Instantiate (destroy);
-			d.transform.position = transform.position;
-			d.transform.localScale = transform.localScale;
-			Destroy (gameObject);
+			if (Ship.playerShip.checkDodge ()) {
+				Destroy (GetComponent<CircleCollider2D> ());
+			} else {
+				Ship.playerShip.causeDamage (coll.contacts [0].point, 15 * transform.localScale.x, 3 * transform.localScale.x);
+				GameObject d = Instantiate (destroy);
+				d.transform.position = transform.position;
+				d.transform.localScale = transform.localScale;
+				Destroy (gameObject);
+			}
 		}
 	}
 }

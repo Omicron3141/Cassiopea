@@ -6,6 +6,9 @@ using System;
 public class Job  {
 	
 	private static int highestID = 0;
+	public static int NONE = 0;
+	public static int HANDS = 1;
+	public static int WELD = 2;
 	// Unique ID
 	public int Id;
 	// 0-2
@@ -20,6 +23,8 @@ public class Job  {
 	public bool permenant = false;
 	// A human-readable description
 	public string desc;
+	// the number for the tool crew should use on this job
+	public int tool = NONE;
 	// The crew member the job is assigned to, or null if unassigned
 	public Person assignedCrew;
 	// the action to call when the job is received

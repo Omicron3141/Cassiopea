@@ -9,6 +9,7 @@ public class Ship: SpaceObject  {
 	public bool isPlayerShip = false;
 	public GameObject[] Blocks;
 	public List<ShipBlock> shipBlocks;
+	public float bestDodgeChance = 0.5f;
 	//the Id of the ladder block for pathfinding
 	int ladderID = 7;
 
@@ -25,6 +26,9 @@ public class Ship: SpaceObject  {
 	//public Text waterDisplay;
 
 	public List<Cannon> cannons;
+	public List<Engine> engines;
+	public List<PilotConsole> pilotconsoles;
+
 
 	void Awake () {
 		if (playerShip == null && isPlayerShip) {
@@ -33,7 +37,7 @@ public class Ship: SpaceObject  {
 		map = new ShipMap (70, 30);
 		cannons = new List<Cannon> ();
 		ConstructShip ("TestShip");
-		//map.printMap ();
+		map.printMap ();
 	}
 
 
@@ -67,7 +71,13 @@ public class Ship: SpaceObject  {
 								if (i == ladderID) {
 									map.setThing (ix, iy, ShipMap.ladder);
 								} else if (block.GetComponent<ShipBlock> ().passable) {
-									map.setThing (ix, iy, ShipMap.passable);
+									float xoff = ix - x - block.GetComponent<ShipBlock> ().impassibleoffset.x;
+									float yoff = iy - y - block.GetComponent<ShipBlock> ().impassibleoffset.y;
+									if ((xoff < block.GetComponent<ShipBlock> ().impassibleextent.x) && (xoff >= 0) && (yoff < block.GetComponent<ShipBlock> ().impassibleextent.y) && (yoff >= 0)) {
+										map.setThing (ix, iy, ShipMap.impassible);
+									} else {
+										map.setThing (ix, iy, ShipMap.passable);
+									}
 								} else {
 									map.setThing (ix, iy, ShipMap.impassible);
 								}
@@ -75,7 +85,7 @@ public class Ship: SpaceObject  {
 						}
 						GameObject thisBlock = Instantiate (block);
 						thisBlock.transform.SetParent (transform);
-						thisBlock.transform.localPosition = new Vector3 (x * 1f, y * 1f, -1f*0.00001f*i);
+						thisBlock.transform.localPosition = new Vector3 (x * 1f, y * 1f, 1f*0.00001f*i);
 						shipBlocks.Add(thisBlock.GetComponent<ShipBlock>());
 					}
 				}
@@ -120,6 +130,14 @@ public class Ship: SpaceObject  {
 		cannons.Add (c);
 	}
 
+	public void addEngine(Engine e){
+		engines.Add (e);
+	}
+
+	public void addPilotConsole(PilotConsole p){
+		pilotconsoles.Add (p);
+	}
+
 	public void target(Vector3 target) {
 		for (int i = 0; i < cannons.Count; i++) {
 			cannons [i].target (target);
@@ -144,9 +162,23 @@ public class Ship: SpaceObject  {
 				dist = (pos - location).magnitude;
 			}
 			if (dist < radius) {
-				Debug.Log (dist);
 				b.changeHealth (-1 * damage * (radius - dist) / radius);
 			}
 		}
+	}
+
+	public bool checkDodge () {
+		float chance = bestDodgeChance;
+		foreach (Engine e in engines) {
+			if (e.cons.broken) {
+				chance -= 0.1f;
+			}
+		}
+		foreach (PilotConsole p in pilotconsoles) {
+			if (p.console.manned) {
+				chance -= 0.3f;
+			}
+		}
+		return (UnityEngine.Random.value < chance);
 	}
 }
