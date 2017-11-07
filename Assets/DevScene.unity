@@ -647,11 +647,7 @@ MonoBehaviour:
   - tag: asteroidfield
     eventObject: {fileID: 1448695850289280, guid: 03d240056ae12004ebc9843c2a5ebfa8,
       type: 2}
-<<<<<<< HEAD
-  eventProbability: 0.5
-=======
-  eventProbability: 1
->>>>>>> ffa54879ab8ca45656ad3849dd8b263e6ef0f8b2
+  eventProbability: 0.1
   currentEffect: {fileID: 0}
 --- !u!4 &479324831
 Transform:
@@ -1105,7 +1101,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 60}
+  m_SizeDelta: {x: 200, y: 127.29}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1398960023
 MonoBehaviour:
@@ -1407,8 +1403,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 2, y: -1}
-  m_SizeDelta: {x: -4, y: -2}
+  m_AnchoredPosition: {x: 0, y: -1}
+  m_SizeDelta: {x: 0, y: -2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1605501147
 MonoBehaviour:
@@ -5165,11 +5161,14 @@ MonoBehaviour:
   - {fileID: 1575220686466098, guid: 0e43fa01957603d4984902b0eb51a3e8, type: 2}
   - {fileID: 1666959500310080, guid: d477f5b1488eabd47a692188a39e0eef, type: 2}
   shipBlocks: []
+  bestDodgeChance: 0.5
   oxygenDisplay: {fileID: 2123891320}
   metalDisplay: {fileID: 513101152}
   foodDisplay: {fileID: 233597507}
   fuelDisplay: {fileID: 1364648695}
   cannons: []
+  engines: []
+  pilotconsoles: []
 --- !u!4 &2116412843
 Transform:
   m_ObjectHideFlags: 0
