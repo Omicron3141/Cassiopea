@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+public enum Skills {WEAPONS, PILOTING, ENGINEERING, SCIENCE, NAVIGATION, PERSONALCOMBAT};
 
 public class Person: Entity  {
 	string Name;
@@ -25,7 +26,6 @@ public class Person: Entity  {
 	public string crewName;
 	public string age;
 	public string profession;
-	public enum Skills {WEAPONS, PILOTING, ENGINEERING, SCIENCE, NAVIGATION, PERSONALCOMBAT};
 	public int[] skillLevels;
 	public List<string> firstNames = new List<string>();
 	public List<string> lastNames = new List<string> ();
@@ -83,75 +83,75 @@ public class Person: Entity  {
 		skillLevels = new int[6];
 
 		if (this.profession == "Engineering Officer") {
-			skillLevels[Skills.PILOTING] = 2;
-			skillLevels[Skills.ENGINEERING] = 4;
-			skillLevels[Skills.SCIENCE] = 2;
-			skillLevels[Skills.NAVIGATION] = 1;
-			skillLevels[Skills.WEAPONS] = 2;
-			skillLevels[Skills.PERSONALCOMBAT] = 1;
+			skillLevels[(int)Skills.PILOTING] = 2;
+			skillLevels[(int)Skills.ENGINEERING] = 4;
+			skillLevels[(int)Skills.SCIENCE] = 2;
+			skillLevels[(int)Skills.NAVIGATION] = 1;
+			skillLevels[(int)Skills.WEAPONS] = 2;
+			skillLevels[(int)Skills.PERSONALCOMBAT] = 1;
 		}
 
 		if (this.profession == "Pilot") {
-			skillLevels[Skills.PILOTING] = 4;
-			skillLevels[Skills.ENGINEERING] = 2;
-			skillLevels[Skills.SCIENCE] = 1;
-			skillLevels[Skills.NAVIGATION] = 3;
-			skillLevels[Skills.WEAPONS] = 2;
-			skillLevels[Skills.PERSONALCOMBAT] = 1;
+			skillLevels[(int)Skills.PILOTING] = 4;
+			skillLevels[(int)Skills.ENGINEERING] = 2;
+			skillLevels[(int)Skills.SCIENCE] = 1;
+			skillLevels[(int)Skills.NAVIGATION] = 3;
+			skillLevels[(int)Skills.WEAPONS] = 2;
+			skillLevels[(int)Skills.PERSONALCOMBAT] = 1;
 		}
 
 		if (this.profession == "Software Engineer") {
-			skillLevels[Skills.PILOTING] = 2;
-			skillLevels[Skills.ENGINEERING] = 2;
-			skillLevels[Skills.SCIENCE] = 3;
-			skillLevels[Skills.NAVIGATION] = 3;
-			skillLevels[Skills.WEAPONS] = 1;
-			skillLevels[Skills.PERSONALCOMBAT] = 1;
+			skillLevels[(int)Skills.PILOTING] = 2;
+			skillLevels[(int)Skills.ENGINEERING] = 2;
+			skillLevels[(int)Skills.SCIENCE] = 3;
+			skillLevels[(int)Skills.NAVIGATION] = 3;
+			skillLevels[(int)Skills.WEAPONS] = 1;
+			skillLevels[(int)Skills.PERSONALCOMBAT] = 1;
 		}
 
 		if (this.profession == "Weapons Specialist") {
-			skillLevels[Skills.PILOTING] = 1;
-			skillLevels[Skills.ENGINEERING] = 2;
-			skillLevels[Skills.SCIENCE] = 1;
-			skillLevels[Skills.NAVIGATION] = 1;
-			skillLevels[Skills.WEAPONS] = 4;
-			skillLevels[Skills.PERSONALCOMBAT] = 3;
+			skillLevels[(int)Skills.PILOTING] = 1;
+			skillLevels[(int)Skills.ENGINEERING] = 2;
+			skillLevels[(int)Skills.SCIENCE] = 1;
+			skillLevels[(int)Skills.NAVIGATION] = 1;
+			skillLevels[(int)Skills.WEAPONS] = 4;
+			skillLevels[(int)Skills.PERSONALCOMBAT] = 3;
 		}
 
 		if (this.profession == "Security Officer") {
-			skillLevels[Skills.PILOTING] = 1;
-			skillLevels[Skills.ENGINEERING] = 1;
-			skillLevels[Skills.SCIENCE] = 1;
-			skillLevels[Skills.NAVIGATION] = 1;
-			skillLevels[Skills.WEAPONS] = 3;
-			skillLevels[Skills.PERSONALCOMBAT] = 4;
+			skillLevels[(int)Skills.PILOTING] = 1;
+			skillLevels[(int)Skills.ENGINEERING] = 1;
+			skillLevels[(int)Skills.SCIENCE] = 1;
+			skillLevels[(int)Skills.NAVIGATION] = 1;
+			skillLevels[(int)Skills.WEAPONS] = 3;
+			skillLevels[(int)Skills.PERSONALCOMBAT] = 4;
 		}
 
 		if (this.profession == "Navigation Officer") {
-			skillLevels[Skills.PILOTING] = 3;
-			skillLevels[Skills.ENGINEERING] = 1;
-			skillLevels[Skills.SCIENCE] = 2;
-			skillLevels[Skills.NAVIGATION] = 4;
-			skillLevels[Skills.WEAPONS] = 2;
-			skillLevels[Skills.PERSONALCOMBAT] = 1;
+			skillLevels[(int)Skills.PILOTING] = 3;
+			skillLevels[(int)Skills.ENGINEERING] = 1;
+			skillLevels[(int)Skills.SCIENCE] = 2;
+			skillLevels[(int)Skills.NAVIGATION] = 4;
+			skillLevels[(int)Skills.WEAPONS] = 2;
+			skillLevels[(int)Skills.PERSONALCOMBAT] = 1;
 		}
 
 		if (this.profession == "Captain") {
-			skillLevels[Skills.PILOTING] = 2;
-			skillLevels[Skills.ENGINEERING] = 2;
-			skillLevels[Skills.SCIENCE] = 2;
-			skillLevels[Skills.NAVIGATION] = 3;
-			skillLevels[Skills.WEAPONS] = 2;
-			skillLevels[Skills.PERSONALCOMBAT] = 2;
+			skillLevels[(int)Skills.PILOTING] = 2;
+			skillLevels[(int)Skills.ENGINEERING] = 2;
+			skillLevels[(int)Skills.SCIENCE] = 2;
+			skillLevels[(int)Skills.NAVIGATION] = 3;
+			skillLevels[(int)Skills.WEAPONS] = 2;
+			skillLevels[(int)Skills.PERSONALCOMBAT] = 2;
 		}
 
 		if (this.profession == "Science Officer") {
-			skillLevels[Skills.PILOTING] = 1;
-			skillLevels[Skills.ENGINEERING] = 3;
-			skillLevels[Skills.SCIENCE] = 4;
-			skillLevels[Skills.NAVIGATION] = 2;
-			skillLevels[Skills.WEAPONS] = 1;
-			skillLevels[Skills.PERSONALCOMBAT] = 1;
+			skillLevels[(int)Skills.PILOTING] = 1;
+			skillLevels[(int)Skills.ENGINEERING] = 3;
+			skillLevels[(int)Skills.SCIENCE] = 4;
+			skillLevels[(int)Skills.NAVIGATION] = 2;
+			skillLevels[(int)Skills.WEAPONS] = 1;
+			skillLevels[(int)Skills.PERSONALCOMBAT] = 1;
 		}
 
 		// start idling
