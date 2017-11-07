@@ -88,6 +88,8 @@ MonoBehaviour:
   id: 8
   passable: 0
   size: {x: 6, y: 3}
+  maxhealth: 2000
+  health: 500
 --- !u!114 &114258591507033840
 MonoBehaviour:
   m_ObjectHideFlags: 1
