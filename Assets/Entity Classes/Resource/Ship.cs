@@ -37,7 +37,7 @@ public class Ship: SpaceObject  {
 		map = new ShipMap (70, 30);
 		cannons = new List<Cannon> ();
 		ConstructShip ("TestShip");
-		map.printMap ();
+		//map.printMap ();
 	}
 
 
@@ -175,7 +175,7 @@ public class Ship: SpaceObject  {
 			}
 		}
 		foreach (PilotConsole p in pilotconsoles) {
-			if (p.console.manned) {
+			if (!p.console.manned) {
 				chance -= 0.3f;
 			}
 		}
