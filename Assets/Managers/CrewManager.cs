@@ -56,55 +56,53 @@ public class CrewManager: MonoBehaviour {
 	void assignJobsByCrew() {
 		for (int c = 0; c < UnassignedCrewMembers.Count; c++) {
 			Person crew = UnassignedCrewMembers [c];
-			Vector3 crewloc = crew.gameObject.transform.localPosition;
-			float mindist = Mathf.Infinity;
-			Job minjob = null;
-			int priority = 0;
-			while (priority < priorities && UnassignedJobs [priority].Count == 0) {
-				priority++;
-			}
-			if (UnassignedJobs [priority].Count > 0) {
-				foreach (Job j in UnassignedJobs[priority]) {
-					if ((j.Location - crewloc).magnitude < mindist) {
-						mindist = (j.Location - crewloc).magnitude;
-						minjob = j;
-					}
-				}
-				UnassignedJobs [priority].Remove(minjob);
-				crew.assignJob (minjob);
-				minjob.assignedCrew = crew;
-				AssignedCrewMembers.Add (crew);
-				UnassignedCrewMembers.Remove (crew);
-				AssignedJobs[priority].Add (minjob);
+			Job newJob = selectJob (crew, priorities-1);
+			if (newJob != null) {
+				assignJob (newJob, null, crew);
 			}
 		}
 		// see if already assigned crew have something better to do
 		for (int c = 0; c < AssignedCrewMembers.Count; c++) {
 			Person crew = AssignedCrewMembers [c];
-			Vector3 crewloc = crew.gameObject.transform.localPosition;
-			float mindist = Mathf.Infinity;
-			Job minjob = null;
-			int priority = 0;
-			while (priority < crew.currentJob.priority-1 && UnassignedJobs [priority].Count == 0) {
-				priority++;
-			}
-			if (priority >= 0 && UnassignedJobs [priority].Count > 0) {
-				foreach (Job j in UnassignedJobs[priority]) {
-					if ((j.Location - crewloc).magnitude < mindist) {
-						mindist = (j.Location - crewloc).magnitude;
-						minjob = j;
-					}
-				}
-				Job oldJob = crew.currentJob;
-				AssignedJobs [oldJob.priority].Remove(oldJob);
-				oldJob.assignedCrew = null;
-				UnassignedJobs [priority].Remove(minjob);
-				crew.assignJob (minjob);
-				minjob.assignedCrew = crew;
-				AssignedJobs [priority].Add (minjob);
-				UnassignedJobs [oldJob.priority].Add (oldJob);
+			Job newJob = selectJob (crew, crew.currentJob.priority-1);
+			if (newJob != null) {
+				assignJob (newJob, crew.currentJob, crew);
 			}
 		}
+	}
+
+	Job selectJob(Person c, int minpriority) {
+		Vector3 crewloc = c.gameObject.transform.localPosition;
+		float mindist = Mathf.Infinity;
+		Job minjob = null;
+		int priority = 0;
+		while (priority < minpriority && UnassignedJobs [priority].Count == 0) {
+			priority++;
+		}
+		if (priority >= 0 && UnassignedJobs [priority].Count > 0) {
+			foreach (Job j in UnassignedJobs[priority]) {
+				if ((j.Location - crewloc).magnitude < mindist) {
+					mindist = (j.Location - crewloc).magnitude;
+					minjob = j;
+				}
+			}
+		}
+		return minjob;
+	}
+
+	void assignJob (Job newJob, Job oldJob, Person crew) {
+		if (oldJob != null) {
+			AssignedJobs [oldJob.priority].Remove (oldJob);
+			oldJob.assignedCrew = null;
+			UnassignedJobs [oldJob.priority].Add (oldJob);
+		} else {
+			AssignedCrewMembers.Add (crew);
+			UnassignedCrewMembers.Remove (crew);
+		}
+		UnassignedJobs [newJob.priority].Remove(newJob);
+		crew.assignJob (newJob);
+		newJob.assignedCrew = crew;
+		AssignedJobs [newJob.priority].Add (newJob);
 	}
 
 	// try to find the best crew member for each job.
@@ -198,17 +196,18 @@ public class CrewManager: MonoBehaviour {
 			text += " Name: " + selectedCrew.crewName + "\n";
 			text += " Age: " + selectedCrew.age + "\n";
 			text += " Profession: " + selectedCrew.profession + "\n";
+			text += " Assigned Role: " + selectedCrew.role + "\n\n";
 			text += " Pilot Level: " + selectedCrew.skillLevels[(int)Skills.PILOTING] + "\n";
 			text += " Navigation Level: " + selectedCrew.skillLevels[(int)Skills.NAVIGATION] + "\n";
 			text += " Engineer Level: " + selectedCrew.skillLevels[(int)Skills.ENGINEERING] + "\n";
 			text += " Science Level: " + selectedCrew.skillLevels[(int)Skills.SCIENCE] + "\n";
 			text += " Weapons Level: " + selectedCrew.skillLevels[(int)Skills.WEAPONS] + "\n";
-			text += " Personal Combat Level: " + selectedCrew.skillLevels[(int)Skills.PERSONALCOMBAT] + "\n";
+			text += " Personal Combat Level: " + selectedCrew.skillLevels[(int)Skills.PERSONALCOMBAT] + "\n\n";
 			text += " Currently: " + selectedCrew.jobDesc() + "\n";
 		} 
 
 		else {
-			text += "No crew selected." + "\n";
+			text += " No crew selected." + "\n";
 		}
 
 		traitsUI.text = text;

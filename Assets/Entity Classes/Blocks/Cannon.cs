@@ -11,7 +11,7 @@ public class Cannon : MonoBehaviour {
 	public float minangle = 0;
 	public float maxangle = 180;
 	public float blockedmedian = 270;
-	public float fireinterval = 1f;
+	public float fireinterval = 2f;
 	bool validtarget = false;
 	bool ontarget = false;
 	Console console;
@@ -97,7 +97,7 @@ public class Cannon : MonoBehaviour {
 			GameObject b = Instantiate (bullet);
 			b.transform.rotation = barrel.transform.rotation;
 			b.transform.position = firepoint.transform.position;
-			firetimer = fireinterval;
+			firetimer = fireinterval / console.mannedskill;
 		}
 	}
 

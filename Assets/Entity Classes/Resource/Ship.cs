@@ -9,7 +9,7 @@ public class Ship: SpaceObject  {
 	public bool isPlayerShip = false;
 	public GameObject[] Blocks;
 	public List<ShipBlock> shipBlocks;
-	public float bestDodgeChance = 0.5f;
+	public float bestDodgeChance = 0.3f;
 	//the Id of the ladder block for pathfinding
 	int ladderID = 7;
 
@@ -176,7 +176,9 @@ public class Ship: SpaceObject  {
 		}
 		foreach (PilotConsole p in pilotconsoles) {
 			if (!p.console.manned) {
-				chance -= 0.3f;
+				chance -= 0.5f;
+			} else {
+				chance += 0.1f * p.console.mannedskill;
 			}
 		}
 		return (UnityEngine.Random.value < chance);

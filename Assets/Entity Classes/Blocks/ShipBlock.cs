@@ -28,8 +28,10 @@ public class ShipBlock: Entity  {
 			fixjob.AssignerLocation = transform.localPosition;
 			fixjob.desc = "Fix block at";
 			fixjob.onComplete = repairComplete;
-			fixjob.duration = (1 - health / maxhealth) * size.x * size.y;
+			fixjob.duration = 3 * (1 - health / maxhealth) * size.x * size.y;
 			fixjob.tool = Job.WELD;
+			fixjob.requiredSkill = Skills.ENGINEERING;
+			fixjob.requiredRole = Roles.ENGINEER;
 			cm.addNewJob (fixjob);		
 		} else {
 			fixjob.duration = (1 - health / maxhealth) * size.x * size.y;

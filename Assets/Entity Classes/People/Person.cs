@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 public enum Skills {WEAPONS, PILOTING, ENGINEERING, SCIENCE, NAVIGATION, PERSONALCOMBAT};
+public enum Roles {PILOT, GUNNER, ENGINEER};
 
 public class Person: Entity  {
 	string Name;
@@ -30,7 +31,7 @@ public class Person: Entity  {
 	public List<string> firstNames = new List<string>();
 	public List<string> lastNames = new List<string> ();
 	public List<string> professions = new List<string> ();
-
+	public Roles role;
 	private CrewManager manager;
 	SpriteRenderer Body;
 
@@ -89,6 +90,7 @@ public class Person: Entity  {
 			skillLevels[(int)Skills.NAVIGATION] = 1;
 			skillLevels[(int)Skills.WEAPONS] = 2;
 			skillLevels[(int)Skills.PERSONALCOMBAT] = 1;
+			role = Roles.ENGINEER;
 		}
 
 		if (this.profession == "Pilot") {
@@ -98,6 +100,7 @@ public class Person: Entity  {
 			skillLevels[(int)Skills.NAVIGATION] = 3;
 			skillLevels[(int)Skills.WEAPONS] = 2;
 			skillLevels[(int)Skills.PERSONALCOMBAT] = 1;
+			role = Roles.PILOT;
 		}
 
 		if (this.profession == "Software Engineer") {
@@ -107,6 +110,7 @@ public class Person: Entity  {
 			skillLevels[(int)Skills.NAVIGATION] = 3;
 			skillLevels[(int)Skills.WEAPONS] = 1;
 			skillLevels[(int)Skills.PERSONALCOMBAT] = 1;
+			role = Roles.PILOT;
 		}
 
 		if (this.profession == "Weapons Specialist") {
@@ -116,6 +120,7 @@ public class Person: Entity  {
 			skillLevels[(int)Skills.NAVIGATION] = 1;
 			skillLevels[(int)Skills.WEAPONS] = 4;
 			skillLevels[(int)Skills.PERSONALCOMBAT] = 3;
+			role = Roles.GUNNER;
 		}
 
 		if (this.profession == "Security Officer") {
@@ -125,6 +130,7 @@ public class Person: Entity  {
 			skillLevels[(int)Skills.NAVIGATION] = 1;
 			skillLevels[(int)Skills.WEAPONS] = 3;
 			skillLevels[(int)Skills.PERSONALCOMBAT] = 4;
+			role = Roles.GUNNER;
 		}
 
 		if (this.profession == "Navigation Officer") {
@@ -134,6 +140,7 @@ public class Person: Entity  {
 			skillLevels[(int)Skills.NAVIGATION] = 4;
 			skillLevels[(int)Skills.WEAPONS] = 2;
 			skillLevels[(int)Skills.PERSONALCOMBAT] = 1;
+			role = Roles.PILOT;
 		}
 
 		if (this.profession == "Captain") {
@@ -143,6 +150,7 @@ public class Person: Entity  {
 			skillLevels[(int)Skills.NAVIGATION] = 3;
 			skillLevels[(int)Skills.WEAPONS] = 2;
 			skillLevels[(int)Skills.PERSONALCOMBAT] = 2;
+			role = Roles.ENGINEER;
 		}
 
 		if (this.profession == "Science Officer") {
@@ -152,6 +160,7 @@ public class Person: Entity  {
 			skillLevels[(int)Skills.NAVIGATION] = 2;
 			skillLevels[(int)Skills.WEAPONS] = 1;
 			skillLevels[(int)Skills.PERSONALCOMBAT] = 1;
+			role = Roles.ENGINEER;
 		}
 
 		// start idling
@@ -212,7 +221,7 @@ public class Person: Entity  {
 						}
 					}
 					if (currentJob.onStart != null) {
-						currentJob.onStart.Invoke ();
+						currentJob.onStart.Invoke (skillLevels[(int)currentJob.requiredSkill].ToString());
 					}
 					state = DOINGJOB;
 
@@ -246,7 +255,11 @@ public class Person: Entity  {
 			// if the job is not permenant
 			if (!currentJob.permenant) {
 				// decrease the time remaining
-				currentJob.duration -= Time.deltaTime;
+				float ratemod = 1;
+				if (currentJob.requiredSkill != null) {
+					ratemod = skillLevels [(int)currentJob.requiredSkill];
+				}
+				currentJob.duration -= (Time.deltaTime * ratemod);
 				// if we're done
 				if (currentJob.duration < 0) {
 					if (currentJob.onComplete != null) {
@@ -293,9 +306,9 @@ public class Person: Entity  {
 		if (state == IDLE) {
 			return "Idle";
 		} else if (state == MOVINGTOJOB) {
-			return "Moving to job:\n \"" + currentJob.Description() + "\"";
+			return "Moving to job:\n  \"" + currentJob.Description() + "\"";
 		} else if (state == DOINGJOB) {
-			return "Doing job \n\"" + currentJob.Description() + "\"";
+			return "Doing job \n  \"" + currentJob.Description() + "\"";
 		} else {
 			return "N/A";
 		}

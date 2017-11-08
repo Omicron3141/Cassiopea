@@ -12,6 +12,8 @@ public class Console : Entity {
 	public bool broken = false;
 	public bool manned = false;
 	public bool mannable = false;
+	public int mannedskill = 1;
+	public Roles roleToUse;
 	// Use this for initialization
 	void Start () {
 		crewManager = CrewManager.instance;
@@ -25,6 +27,7 @@ public class Console : Entity {
 			j.onStart = NowManned;
 			j.onInterrupt = NowUnmanned;
 			j.tool = Job.HANDS;
+			j.requiredRole = roleToUse;
 			crewManager.addNewJob (j);
 		}
 	}
@@ -40,6 +43,8 @@ public class Console : Entity {
 			j.onComplete = MaintenanceComplete;
 			j.priority = maintenancePriority;
 			j.tool = Job.HANDS;
+			j.requiredSkill = Skills.ENGINEERING;
+			j.requiredRole = Roles.ENGINEER;
 			crewManager.addNewJob(j);
 			broken = true;
 		}
@@ -49,10 +54,12 @@ public class Console : Entity {
 		broken = false;
 	}
 
-	void NowManned() {
+	void NowManned(string ms) {
 		manned = true;
+		mannedskill = int.Parse(ms);
 	}
 	void NowUnmanned() {
 		manned = false;
+		mannedskill = 1;
 	}
 }
