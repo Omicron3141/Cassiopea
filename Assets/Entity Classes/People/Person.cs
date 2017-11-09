@@ -18,7 +18,7 @@ public class Person: Entity  {
 	// A paramater to get the current job
 	private Job CurrentJob{ get{ return currentJob; } }
 	// access state
-	private bool DoingJob{ get{ return state != IDLE; } }
+	private bool DoingJob{ get{ return state != State.IDLE; } }
 	// a path is a queue of waypoints
 	private Queue<Vector3> path;
 	// the current waypoint
@@ -35,12 +35,10 @@ public class Person: Entity  {
 	private CrewManager manager;
 	SpriteRenderer Body;
 
+	enum State {IDLE, MOVINGTOJOB, DOINGJOB};
 
-	private int state = 0;
+	private State state = State.IDLE;
 
-	private static int IDLE = 0;
-	private static int MOVINGTOJOB = 1;
-	private static int DOINGJOB = 2;
 
 	void Start () {
 		// get the crew manager
@@ -169,12 +167,13 @@ public class Person: Entity  {
 
 
 	void Update () {
-		if (currentJob == null) {
-			state = IDLE;
+
+		if (currentJob == null && state != State.IDLE) {
+			state = State.IDLE;
 		}
-		if (state == IDLE) {
+		if (state == State.IDLE) {
 			// are we basically at our target?
-			if (Mathf.Abs ((target - transform.localPosition).magnitude) < speed * Time.deltaTime) {
+			if (Mathf.Abs ((target - transform.localPosition).magnitude) < 2f * speed * Time.deltaTime) {
 				// move to our target
 				transform.localPosition = new Vector3(target.x, target.y, 0f);
 				// get a new wander point
@@ -200,9 +199,9 @@ public class Person: Entity  {
 				transform.localScale = new Vector3 (facing, 1f, 1f);
 				transform.Translate (Xdirection * idleSpeed * Time.deltaTime, Ydirection * idleSpeed * Time.deltaTime, 0f);
 			}
-		} else if (state == MOVINGTOJOB) {
+		} else if (state == State.MOVINGTOJOB) {
 			// if we are basically at our target
-			if (Mathf.Abs ((target - transform.localPosition).magnitude) < speed * Time.deltaTime) {
+			if (Mathf.Abs ((target - transform.localPosition).magnitude) < 2f * speed * Time.deltaTime) {
 				// go to the target
 				transform.localPosition = new Vector3(target.x, target.y, 0f);
 				// was this our last waypoint
@@ -223,7 +222,7 @@ public class Person: Entity  {
 					if (currentJob.onStart != null) {
 						currentJob.onStart.Invoke (skillLevels[(int)currentJob.requiredSkill].ToString());
 					}
-					state = DOINGJOB;
+					state = State.DOINGJOB;
 
 				} else {
 					// get the next waypoint
@@ -251,7 +250,7 @@ public class Person: Entity  {
 				transform.localScale = new Vector3 (facing, 1f, 1f);
 				transform.Translate (Xdirection * speed * Time.deltaTime, Ydirection * speed * Time.deltaTime, 0f);
 			}
-		} else if (state == DOINGJOB) {
+		} else if (state == State.DOINGJOB) {
 			// if the job is not permenant
 			if (!currentJob.permenant) {
 				// decrease the time remaining
@@ -267,7 +266,7 @@ public class Person: Entity  {
 					}
 					manager.UnassignJob (this, currentJob);
 					currentJob = null;
-					state = IDLE;
+					state = State.IDLE;
 					transform.Find ("Hands").gameObject.SetActive (false);
 					transform.Find ("Welder").gameObject.SetActive (false);
 
@@ -284,7 +283,7 @@ public class Person: Entity  {
 		currentJob.Location.z = transform.localPosition.z;
 		path = Ship.playerShip.map.pathfind (transform.localPosition, currentJob.Location);
 		target = path.Dequeue ();
-		state = MOVINGTOJOB;
+		state = State.MOVINGTOJOB;
 		transform.Find ("Hands").gameObject.SetActive (false);
 		transform.Find ("Welder").gameObject.SetActive (false);
 		if (currentJob.onReceive != null) {
@@ -303,11 +302,11 @@ public class Person: Entity  {
 	}
 
 	public string jobDesc() {
-		if (state == IDLE) {
+		if (state == State.IDLE) {
 			return "Idle";
-		} else if (state == MOVINGTOJOB) {
+		} else if (state == State.MOVINGTOJOB) {
 			return "Moving to job:\n  \"" + currentJob.Description() + "\"";
-		} else if (state == DOINGJOB) {
+		} else if (state == State.DOINGJOB) {
 			return "Doing job \n  \"" + currentJob.Description() + "\"";
 		} else {
 			return "N/A";

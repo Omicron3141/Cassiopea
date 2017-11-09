@@ -56,7 +56,7 @@ public class CrewManager: MonoBehaviour {
 	void assignJobsByCrew() {
 		for (int c = 0; c < UnassignedCrewMembers.Count; c++) {
 			Person crew = UnassignedCrewMembers [c];
-			Job newJob = selectJob (crew, priorities-1);
+			Job newJob = selectJob (crew);
 			if (newJob != null) {
 				assignJob (newJob, null, crew);
 			}
@@ -64,30 +64,64 @@ public class CrewManager: MonoBehaviour {
 		// see if already assigned crew have something better to do
 		for (int c = 0; c < AssignedCrewMembers.Count; c++) {
 			Person crew = AssignedCrewMembers [c];
-			Job newJob = selectJob (crew, crew.currentJob.priority-1);
+			Job newJob = selectJob (crew);
 			if (newJob != null) {
 				assignJob (newJob, crew.currentJob, crew);
 			}
 		}
 	}
 
-	Job selectJob(Person c, int minpriority) {
+	Job selectJob(Person c) {
 		Vector3 crewloc = c.gameObject.transform.localPosition;
 		float mindist = Mathf.Infinity;
 		Job minjob = null;
-		int priority = 0;
-		while (priority < minpriority && UnassignedJobs [priority].Count == 0) {
-			priority++;
+		bool foundJobOfCorrectRole;
+		bool bestNonCorrectRoleJobFound = false;
+		int minpriority = priorities;
+		if (c.currentJob == null) {
+			foundJobOfCorrectRole = false;
+		} else {
+			foundJobOfCorrectRole = (c.currentJob.requiredRole == c.role);
+			minpriority = c.currentJob.priority;
 		}
-		if (priority >= 0 && UnassignedJobs [priority].Count > 0) {
-			foreach (Job j in UnassignedJobs[priority]) {
-				if ((j.Location - crewloc).magnitude < mindist) {
-					mindist = (j.Location - crewloc).magnitude;
-					minjob = j;
+		for (int priority = 0; priority < priorities; priority++) {
+			if (UnassignedJobs [priority].Count > 0) {
+				foreach (Job j in UnassignedJobs[priority]) {
+					if (foundJobOfCorrectRole) { 
+						if (j.requiredRole == c.role) {
+							if ((j.Location - crewloc).magnitude < mindist) {
+								mindist = (j.Location - crewloc).magnitude;
+								minjob = j;
+							}
+						}
+					} else {
+						if (j.requiredRole == c.role) {
+							mindist = (j.Location - crewloc).magnitude;
+							minjob = j;
+							foundJobOfCorrectRole = true;
+						} else if (!bestNonCorrectRoleJobFound) {
+							if ((j.Location - crewloc).magnitude < mindist) {
+								mindist = (j.Location - crewloc).magnitude;
+								minjob = j;
+							}
+						}
+					}
+				}
+				if (foundJobOfCorrectRole && minjob != null) {
+					if (priority < minpriority) {
+						return minjob;
+					} else {
+						return null;
+					}
+				} else if (minjob != null) {
+					bestNonCorrectRoleJobFound = true;
 				}
 			}
 		}
-		return minjob;
+		if (minjob != null && minjob.priority < minpriority) {
+			return minjob;
+		}
+		return null;
 	}
 
 	void assignJob (Job newJob, Job oldJob, Person crew) {
