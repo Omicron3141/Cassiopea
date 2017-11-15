@@ -11,7 +11,7 @@ public class Cannon : MonoBehaviour {
 	public float minangle = 0;
 	public float maxangle = 180;
 	public float blockedmedian = 270;
-	public float fireinterval = 1f;
+	public float fireinterval = 2f;
 	bool validtarget = false;
 	bool ontarget = false;
 	Console console;
@@ -19,6 +19,7 @@ public class Cannon : MonoBehaviour {
 
 	public GameObject bullet;
 	public float barrellength = 10f;
+	Vector3 barrelpos;
 	float firetimer;
 	// Use this for initialization
 	void Start () {
@@ -27,6 +28,7 @@ public class Cannon : MonoBehaviour {
 		rottarget = barrel.transform.rotation.eulerAngles.z;
 		firetimer = 0f;
 		console = GetComponent<Console> ();
+		barrelpos = barrel.transform.position;
 	}
 	
 	// Update is called once per frame
@@ -51,6 +53,13 @@ public class Cannon : MonoBehaviour {
 				ontarget = false;
 			}
 			firetimer -= Time.deltaTime;
+		}
+		if (barrel.transform.position != barrelpos) {
+			if ((barrel.transform.position - barrelpos).magnitude < 10f*Time.deltaTime) {
+				barrel.transform.position = barrelpos;
+			} else {
+				barrel.transform.Translate (Time.deltaTime, 0f, 0f, Space.Self);
+			}
 		}
 	}
 
@@ -97,7 +106,9 @@ public class Cannon : MonoBehaviour {
 			GameObject b = Instantiate (bullet);
 			b.transform.rotation = barrel.transform.rotation;
 			b.transform.position = firepoint.transform.position;
-			firetimer = fireinterval;
+			firetimer = fireinterval / console.mannedskill;
+			barrel.transform.position = barrelpos;
+			barrel.transform.Translate (-0.5f, 0f, 0f, Space.Self);
 		}
 	}
 

@@ -30,12 +30,14 @@ public class Job  {
 	// the action to call when the job is received
 	public Action onReceive;
 	// the action to call when the job is started
-	public Action onStart;
+	public Action<string> onStart;
 	// the action to call when the job is interrupted
 	public Action onInterrupt;
 	// the action to call when the job is done
 	public Action onComplete;
 	bool assigned = false;
+	public Skills requiredSkill;
+	public Roles requiredRole;
 
 	public Job() {
 		Id = highestID;

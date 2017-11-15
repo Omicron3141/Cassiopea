@@ -576,6 +576,8 @@ MonoBehaviour:
   broken: 0
   manned: 0
   mannable: 1
+  mannedskill: 1
+  roleToUse: 1
 --- !u!114 &114560456054131464
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -593,7 +595,7 @@ MonoBehaviour:
   minangle: 45
   maxangle: 270
   blockedmedian: 157.5
-  fireinterval: 0.5
+  fireinterval: 1
   anim: {fileID: 1246301540811554}
   bullet: {fileID: 1527248421050848, guid: b2f6ffe3ffed455408b1c68306a4fb7d, type: 2}
   barrellength: 10

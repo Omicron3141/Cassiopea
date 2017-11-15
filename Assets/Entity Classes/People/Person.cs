@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+public enum Skills {WEAPONS, PILOTING, ENGINEERING, SCIENCE, NAVIGATION, PERSONALCOMBAT};
+public enum Roles {PILOT, GUNNER, ENGINEER};
 
 public class Person: Entity  {
 	string Name;
@@ -16,7 +18,7 @@ public class Person: Entity  {
 	// A paramater to get the current job
 	private Job CurrentJob{ get{ return currentJob; } }
 	// access state
-	private bool DoingJob{ get{ return state != IDLE; } }
+	private bool DoingJob{ get{ return state != State.IDLE; } }
 	// a path is a queue of waypoints
 	private Queue<Vector3> path;
 	// the current waypoint
@@ -25,25 +27,18 @@ public class Person: Entity  {
 	public string crewName;
 	public string age;
 	public string profession;
-	public int weaponsLevel;
-	public int pilotLevel;
-	public int engineerLevel;
-	public int scienceLevel;
-	public int navigationLevel;
-	public int personalCombatLevel;
+	public int[] skillLevels;
 	public List<string> firstNames = new List<string>();
 	public List<string> lastNames = new List<string> ();
 	public List<string> professions = new List<string> ();
-
+	public Roles role;
 	private CrewManager manager;
 	SpriteRenderer Body;
 
+	enum State {IDLE, MOVINGTOJOB, DOINGJOB};
 
-	private int state = 0;
+	private State state = State.IDLE;
 
-	private static int IDLE = 0;
-	private static int MOVINGTOJOB = 1;
-	private static int DOINGJOB = 2;
 
 	void Start () {
 		// get the crew manager
@@ -84,76 +79,86 @@ public class Person: Entity  {
 		this.profession = professions [randomProfIndex];
 		this.age = UnityEngine.Random.Range (25, 70).ToString ();
 
+		skillLevels = new int[6];
+
 		if (this.profession == "Engineering Officer") {
-			this.pilotLevel = 2;
-			this.engineerLevel = 4;
-			this.scienceLevel = 2;
-			this.navigationLevel = 1;
-			this.weaponsLevel = 2;
-			this.personalCombatLevel = 1;
+			skillLevels[(int)Skills.PILOTING] = 2;
+			skillLevels[(int)Skills.ENGINEERING] = 4;
+			skillLevels[(int)Skills.SCIENCE] = 2;
+			skillLevels[(int)Skills.NAVIGATION] = 1;
+			skillLevels[(int)Skills.WEAPONS] = 2;
+			skillLevels[(int)Skills.PERSONALCOMBAT] = 1;
+			role = Roles.ENGINEER;
 		}
 
 		if (this.profession == "Pilot") {
-			this.pilotLevel = 4;
-			this.engineerLevel = 2;
-			this.scienceLevel = 1;
-			this.navigationLevel = 3;
-			this.weaponsLevel = 2;
-			this.personalCombatLevel = 1;
+			skillLevels[(int)Skills.PILOTING] = 4;
+			skillLevels[(int)Skills.ENGINEERING] = 2;
+			skillLevels[(int)Skills.SCIENCE] = 1;
+			skillLevels[(int)Skills.NAVIGATION] = 3;
+			skillLevels[(int)Skills.WEAPONS] = 2;
+			skillLevels[(int)Skills.PERSONALCOMBAT] = 1;
+			role = Roles.PILOT;
 		}
 
 		if (this.profession == "Software Engineer") {
-			this.pilotLevel = 2;
-			this.engineerLevel = 2;
-			this.scienceLevel = 3;
-			this.navigationLevel = 3;
-			this.weaponsLevel = 1;
-			this.personalCombatLevel = 1;
+			skillLevels[(int)Skills.PILOTING] = 2;
+			skillLevels[(int)Skills.ENGINEERING] = 2;
+			skillLevels[(int)Skills.SCIENCE] = 3;
+			skillLevels[(int)Skills.NAVIGATION] = 3;
+			skillLevels[(int)Skills.WEAPONS] = 1;
+			skillLevels[(int)Skills.PERSONALCOMBAT] = 1;
+			role = Roles.PILOT;
 		}
 
 		if (this.profession == "Weapons Specialist") {
-			this.pilotLevel = 1;
-			this.engineerLevel = 2;
-			this.scienceLevel = 1;
-			this.navigationLevel = 1;
-			this.weaponsLevel = 4;
-			this.personalCombatLevel = 3;
+			skillLevels[(int)Skills.PILOTING] = 1;
+			skillLevels[(int)Skills.ENGINEERING] = 2;
+			skillLevels[(int)Skills.SCIENCE] = 1;
+			skillLevels[(int)Skills.NAVIGATION] = 1;
+			skillLevels[(int)Skills.WEAPONS] = 4;
+			skillLevels[(int)Skills.PERSONALCOMBAT] = 3;
+			role = Roles.GUNNER;
 		}
 
 		if (this.profession == "Security Officer") {
-			this.pilotLevel = 1;
-			this.engineerLevel = 1;
-			this.scienceLevel = 1;
-			this.navigationLevel = 1;
-			this.weaponsLevel = 3;
-			this.personalCombatLevel = 4;
+			skillLevels[(int)Skills.PILOTING] = 1;
+			skillLevels[(int)Skills.ENGINEERING] = 1;
+			skillLevels[(int)Skills.SCIENCE] = 1;
+			skillLevels[(int)Skills.NAVIGATION] = 1;
+			skillLevels[(int)Skills.WEAPONS] = 3;
+			skillLevels[(int)Skills.PERSONALCOMBAT] = 4;
+			role = Roles.GUNNER;
 		}
 
 		if (this.profession == "Navigation Officer") {
-			this.pilotLevel = 3;
-			this.engineerLevel = 1;
-			this.scienceLevel = 2;
-			this.navigationLevel = 4;
-			this.weaponsLevel = 2;
-			this.personalCombatLevel = 1;
+			skillLevels[(int)Skills.PILOTING] = 3;
+			skillLevels[(int)Skills.ENGINEERING] = 1;
+			skillLevels[(int)Skills.SCIENCE] = 2;
+			skillLevels[(int)Skills.NAVIGATION] = 4;
+			skillLevels[(int)Skills.WEAPONS] = 2;
+			skillLevels[(int)Skills.PERSONALCOMBAT] = 1;
+			role = Roles.PILOT;
 		}
 
 		if (this.profession == "Captain") {
-			this.pilotLevel = 2;
-			this.engineerLevel = 2;
-			this.scienceLevel = 2;
-			this.navigationLevel = 3;
-			this.weaponsLevel = 2;
-			this.personalCombatLevel = 2;
+			skillLevels[(int)Skills.PILOTING] = 2;
+			skillLevels[(int)Skills.ENGINEERING] = 2;
+			skillLevels[(int)Skills.SCIENCE] = 2;
+			skillLevels[(int)Skills.NAVIGATION] = 3;
+			skillLevels[(int)Skills.WEAPONS] = 2;
+			skillLevels[(int)Skills.PERSONALCOMBAT] = 2;
+			role = Roles.ENGINEER;
 		}
 
 		if (this.profession == "Science Officer") {
-			this.pilotLevel = 1;
-			this.engineerLevel = 3;
-			this.scienceLevel = 4;
-			this.navigationLevel = 2;
-			this.weaponsLevel = 1;
-			this.personalCombatLevel = 1;
+			skillLevels[(int)Skills.PILOTING] = 1;
+			skillLevels[(int)Skills.ENGINEERING] = 3;
+			skillLevels[(int)Skills.SCIENCE] = 4;
+			skillLevels[(int)Skills.NAVIGATION] = 2;
+			skillLevels[(int)Skills.WEAPONS] = 1;
+			skillLevels[(int)Skills.PERSONALCOMBAT] = 1;
+			role = Roles.ENGINEER;
 		}
 
 		// start idling
@@ -162,12 +167,13 @@ public class Person: Entity  {
 
 
 	void Update () {
-		if (currentJob == null) {
-			state = IDLE;
+
+		if (currentJob == null && state != State.IDLE) {
+			state = State.IDLE;
 		}
-		if (state == IDLE) {
+		if (state == State.IDLE) {
 			// are we basically at our target?
-			if (Mathf.Abs ((target - transform.localPosition).magnitude) < speed * Time.deltaTime) {
+			if (Mathf.Abs ((target - transform.localPosition).magnitude) < 2f * speed * Time.deltaTime) {
 				// move to our target
 				transform.localPosition = new Vector3(target.x, target.y, 0f);
 				// get a new wander point
@@ -193,9 +199,9 @@ public class Person: Entity  {
 				transform.localScale = new Vector3 (facing, 1f, 1f);
 				transform.Translate (Xdirection * idleSpeed * Time.deltaTime, Ydirection * idleSpeed * Time.deltaTime, 0f);
 			}
-		} else if (state == MOVINGTOJOB) {
+		} else if (state == State.MOVINGTOJOB) {
 			// if we are basically at our target
-			if (Mathf.Abs ((target - transform.localPosition).magnitude) < speed * Time.deltaTime) {
+			if (Mathf.Abs ((target - transform.localPosition).magnitude) < 2f * speed * Time.deltaTime) {
 				// go to the target
 				transform.localPosition = new Vector3(target.x, target.y, 0f);
 				// was this our last waypoint
@@ -214,9 +220,9 @@ public class Person: Entity  {
 						}
 					}
 					if (currentJob.onStart != null) {
-						currentJob.onStart.Invoke ();
+						currentJob.onStart.Invoke (skillLevels[(int)currentJob.requiredSkill].ToString());
 					}
-					state = DOINGJOB;
+					state = State.DOINGJOB;
 
 				} else {
 					// get the next waypoint
@@ -244,11 +250,15 @@ public class Person: Entity  {
 				transform.localScale = new Vector3 (facing, 1f, 1f);
 				transform.Translate (Xdirection * speed * Time.deltaTime, Ydirection * speed * Time.deltaTime, 0f);
 			}
-		} else if (state == DOINGJOB) {
+		} else if (state == State.DOINGJOB) {
 			// if the job is not permenant
 			if (!currentJob.permenant) {
 				// decrease the time remaining
-				currentJob.duration -= Time.deltaTime;
+				float ratemod = 1;
+				if (currentJob.requiredSkill != null) {
+					ratemod = skillLevels [(int)currentJob.requiredSkill];
+				}
+				currentJob.duration -= (Time.deltaTime * ratemod);
 				// if we're done
 				if (currentJob.duration < 0) {
 					if (currentJob.onComplete != null) {
@@ -256,7 +266,7 @@ public class Person: Entity  {
 					}
 					manager.UnassignJob (this, currentJob);
 					currentJob = null;
-					state = IDLE;
+					state = State.IDLE;
 					transform.Find ("Hands").gameObject.SetActive (false);
 					transform.Find ("Welder").gameObject.SetActive (false);
 
@@ -273,7 +283,7 @@ public class Person: Entity  {
 		currentJob.Location.z = transform.localPosition.z;
 		path = Ship.playerShip.map.pathfind (transform.localPosition, currentJob.Location);
 		target = path.Dequeue ();
-		state = MOVINGTOJOB;
+		state = State.MOVINGTOJOB;
 		transform.Find ("Hands").gameObject.SetActive (false);
 		transform.Find ("Welder").gameObject.SetActive (false);
 		if (currentJob.onReceive != null) {
@@ -292,12 +302,12 @@ public class Person: Entity  {
 	}
 
 	public string jobDesc() {
-		if (state == IDLE) {
+		if (state == State.IDLE) {
 			return "Idle";
-		} else if (state == MOVINGTOJOB) {
-			return "Moving to job:\n \"" + currentJob.Description() + "\"";
-		} else if (state == DOINGJOB) {
-			return "Doing job \n\"" + currentJob.Description() + "\"";
+		} else if (state == State.MOVINGTOJOB) {
+			return "Moving to job:\n  \"" + currentJob.Description() + "\"";
+		} else if (state == State.DOINGJOB) {
+			return "Doing job \n  \"" + currentJob.Description() + "\"";
 		} else {
 			return "N/A";
 		}

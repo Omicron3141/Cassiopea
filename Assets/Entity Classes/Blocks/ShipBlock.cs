@@ -23,13 +23,15 @@ public class ShipBlock: Entity  {
 		GetComponent<SpriteRenderer> ().color = new Color(1f, 1f, 1f, health / maxhealth);
 		if (fixjob == null) {
 			fixjob = new Job ();
-			fixjob.priority = 1;
+			fixjob.priority = 0;
 			fixjob.Location = Ship.playerShip.map.nearestInsideFloorSpot (transform.localPosition);
 			fixjob.AssignerLocation = transform.localPosition;
 			fixjob.desc = "Fix block at";
 			fixjob.onComplete = repairComplete;
-			fixjob.duration = (1 - health / maxhealth) * size.x * size.y;
+			fixjob.duration = 3 * (1 - health / maxhealth) * size.x * size.y;
 			fixjob.tool = Job.WELD;
+			fixjob.requiredSkill = Skills.ENGINEERING;
+			fixjob.requiredRole = Roles.ENGINEER;
 			cm.addNewJob (fixjob);		
 		} else {
 			fixjob.duration = (1 - health / maxhealth) * size.x * size.y;

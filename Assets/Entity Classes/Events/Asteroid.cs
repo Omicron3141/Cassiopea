@@ -8,6 +8,7 @@ public class Asteroid : Entity {
 	public float endPosition;
 	public float health;
 	public GameObject destroy;
+	public GameObject dodged;
 	// Use this for initialization
 	void Start () {
 		rotSpeed *= (int)(Mathf.Round (Random.value * 2 - 1));
@@ -36,6 +37,8 @@ public class Asteroid : Entity {
 		}else if (coll.gameObject.GetComponent<Ship> () != null && coll.gameObject.GetComponent<Ship> () == Ship.playerShip) {
 			if (Ship.playerShip.checkDodge ()) {
 				Destroy (GetComponent<CircleCollider2D> ());
+				GameObject d = Instantiate (dodged);
+				d.transform.position = new Vector3 (transform.position.x, transform.position.y, -3f);
 			} else {
 				Ship.playerShip.causeDamage (coll.contacts [0].point, 15 * transform.localScale.x, 3 * transform.localScale.x);
 				GameObject d = Instantiate (destroy);

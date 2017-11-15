@@ -135,6 +135,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   normalthrust: 3000
   brokenthrust: 1000
+  cons: {fileID: 0}
 --- !u!114 &114812564444450322
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -148,12 +149,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactionSpot: {x: 6, y: 0}
   maintenanceChance: 0.001
-  maintenanceDuraction: 4
+  maintenanceDuraction: 12
   humanReadableName: engine
-  maintenancePriority: 0
+  maintenancePriority: 1
   broken: 0
   manned: 0
   mannable: 0
+  mannedskill: 1
+  roleToUse: 0
 --- !u!198 &198072835452106578
 ParticleSystem:
   m_ObjectHideFlags: 1
