@@ -303,4 +303,42 @@ public class Person: Entity  {
 		}
 	}
 
+	public void improveSkill(string skill) {
+		if (skill == "weapons") {
+			if (this.weaponsLevel < 5) {
+				this.weaponsLevel += 1;
+			}
+		}
+
+		if (skill == "pilot") {
+			if (this.pilotLevel < 5) {
+				this.pilotLevel += 1;
+			}
+		}
+
+		if (skill == "engineer") {
+			if (this.engineerLevel < 5) {
+				this.engineerLevel += 1;
+			}
+		}
+
+		if (skill == "science") {
+			if (this.scienceLevel < 5) {
+				this.scienceLevel += 1;
+			}
+		}
+
+		if (skill == "navigation") {
+			if (this.navigationLevel < 5) {
+				this.navigationLevel += 1;
+			}
+		}
+
+		if (skill == "personalCombat") {
+			if (this.personalCombatLevel < 5) {
+				this.personalCombatLevel += 1;
+			}
+		}
+	}
+
 }

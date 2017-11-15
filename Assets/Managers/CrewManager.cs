@@ -172,10 +172,16 @@ public class CrewManager: MonoBehaviour {
 	}
 
 	// recall an assigned or unassigned job
-	public void recallJob(Job j){
+	public void recallJob(Job j) {
 		if (!UnassignedJobs [j.priority].Remove (j)) {
 			UnassignJob (j.assignedCrew, j);
 		}
+	}
+
+	public List<Person> getCrewMembers() {
+		List<Person> CrewList = this.AssignedCrewMembers;
+		CrewList.AddRange(this.UnassignedCrewMembers);
+		return CrewList;
 	}
 		
 	private void updateJobsUI() {

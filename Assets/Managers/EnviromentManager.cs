@@ -163,6 +163,20 @@ public class EnviromentManager: MonoBehaviour {
 				}
 				concatFunction (paramaters[1], action1, paramaters[2+i2], action2);
 				break;
+			case "improveRandomSkillLevel":
+				improveRandomSkillLevel ();
+				break;
+			case "checkSkillLevel":
+				bool check = checkForSkill (paramaters [0], int.Parse (paramaters [1]));
+
+				if (check == true) {
+					loadEvent (paramaters [2]);
+				} 
+
+				else if (check == false) {
+					loadEvent (paramaters [3]);
+				}
+				break;
 		}
 	}
 
@@ -310,6 +324,77 @@ public class EnviromentManager: MonoBehaviour {
 		eventFunction (func2, params2);
 	}
 
+	void improveRandomSkillLevel() {
+		List<Person> currentCrew = CrewManager.instance.getCrewMembers();
+		int randomCrewIndex = UnityEngine.Random.Range (0, currentCrew.Count);
+		Person selectedCrew = currentCrew [randomCrewIndex];
+		List<string> listOfSkills = new List<string> ();
+		listOfSkills.Add ("weapons");
+		listOfSkills.Add ("pilot");
+		listOfSkills.Add ("engineer");
+		listOfSkills.Add ("science");
+		listOfSkills.Add ("navigation");
+		listOfSkills.Add ("personalCombat");
+
+		int randomSkillIndex = UnityEngine.Random.Range (0, listOfSkills.Count);
+		string randomSkill = listOfSkills [randomSkillIndex];
+
+		selectedCrew.improveSkill(randomSkill);
+	}
+
+	void improveSpecificSkillLevel(string skill) {
+		List<Person> currentCrew = CrewManager.instance.getCrewMembers();
+		int randomCrewIndex = UnityEngine.Random.Range (0, currentCrew.Count);
+		Person selectedCrew = currentCrew [randomCrewIndex];
+
+		selectedCrew.improveSkill(skill);
+	}
+
+	bool checkForSkill(string skill, int level) {
+		List<Person> currentCrew = CrewManager.instance.getCrewMembers();
+
+		bool returnBool = false;
+
+		for (int i = 0; i < currentCrew.Count; i++) {
+			if (skill == "weapons") {
+				if (currentCrew[i].weaponsLevel >= level) {
+					returnBool = true;
+				}
+			}
+
+			if (skill == "pilot") {
+				if (currentCrew[i].pilotLevel >= level) {
+					returnBool = true;
+				}
+			}
+
+			if (skill == "engineer") {
+				if (currentCrew[i].engineerLevel >= level) {
+					returnBool = true;
+				}
+			}
+
+			if (skill == "science") {
+				if (currentCrew[i].scienceLevel >= level) {
+					returnBool = true;
+				}
+			}
+
+			if (skill == "navigation") {
+				if (currentCrew[i].navigationLevel >= level) {
+					returnBool = true;
+				}
+			}
+
+			if (skill == "personalCombat") {
+				if (currentCrew[i].personalCombatLevel >= level) {
+					returnBool = true;
+				}
+			}
+		}
+
+		return returnBool;
+	}
 
 	public void endEvent(){
 		currentEffect = null;
