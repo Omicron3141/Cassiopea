@@ -171,12 +171,15 @@ public class EnviromentManager: MonoBehaviour {
 
 				if (check == true) {
 					loadEvent (paramaters [2]);
+					print("2");
+					break;
 				} 
 
-				else if (check == false) {
+				else {
 					loadEvent (paramaters [3]);
+					print ("3");
+					break;
 				}
-				break;
 		}
 	}
 
@@ -357,37 +360,37 @@ public class EnviromentManager: MonoBehaviour {
 
 		for (int i = 0; i < currentCrew.Count; i++) {
 			if (skill == "weapons") {
-				if (currentCrew[i].weaponsLevel >= level) {
+				if (currentCrew[i].skillLevels[(int)Skills.WEAPONS] >= level) {
 					returnBool = true;
 				}
 			}
 
 			if (skill == "pilot") {
-				if (currentCrew[i].pilotLevel >= level) {
+				if (currentCrew[i].skillLevels[(int)Skills.PILOTING] >= level) {
 					returnBool = true;
 				}
 			}
 
 			if (skill == "engineer") {
-				if (currentCrew[i].engineerLevel >= level) {
+				if (currentCrew[i].skillLevels[(int)Skills.ENGINEERING] >= level) {
 					returnBool = true;
 				}
 			}
 
 			if (skill == "science") {
-				if (currentCrew[i].scienceLevel >= level) {
+				if (currentCrew[i].skillLevels[(int)Skills.SCIENCE] >= level) {
 					returnBool = true;
 				}
 			}
 
 			if (skill == "navigation") {
-				if (currentCrew[i].navigationLevel >= level) {
+				if (currentCrew[i].skillLevels[(int)Skills.NAVIGATION] >= level) {
 					returnBool = true;
 				}
 			}
 
 			if (skill == "personalCombat") {
-				if (currentCrew[i].personalCombatLevel >= level) {
+				if (currentCrew[i].skillLevels[(int)Skills.PERSONALCOMBAT] >= level) {
 					returnBool = true;
 				}
 			}

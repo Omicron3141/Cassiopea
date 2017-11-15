@@ -233,6 +233,7 @@ public class CrewManager: MonoBehaviour {
 		string text = "";
 
 		if (selectedCrew != null) {
+			text += " Health: " + selectedCrew.currentHealth.ToString () + " / " + selectedCrew.maxHealth.ToString () + "\n";
 			text += " Name: " + selectedCrew.crewName + "\n";
 			text += " Age: " + selectedCrew.age + "\n";
 			text += " Profession: " + selectedCrew.profession + "\n";
@@ -242,7 +243,12 @@ public class CrewManager: MonoBehaviour {
 			text += " Engineer Level: " + selectedCrew.skillLevels[(int)Skills.ENGINEERING] + "\n";
 			text += " Science Level: " + selectedCrew.skillLevels[(int)Skills.SCIENCE] + "\n";
 			text += " Weapons Level: " + selectedCrew.skillLevels[(int)Skills.WEAPONS] + "\n";
-			text += " Personal Combat Level: " + selectedCrew.skillLevels[(int)Skills.PERSONALCOMBAT] + "\n\n";
+			text += " Personal Combat Level: " + selectedCrew.skillLevels [(int)Skills.PERSONALCOMBAT] + "\n";
+			text += " Traits: ";
+			foreach (var eachTrait in selectedCrew.traits) {
+				text += eachTrait;
+			}
+			text += "\n\n";
 			text += " Currently: " + selectedCrew.jobDesc() + "\n";
 		} 
 

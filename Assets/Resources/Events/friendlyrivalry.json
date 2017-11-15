@@ -4,7 +4,7 @@
     "text": "Captain, it looks like two of our crew members have engaged in a friendly rivalry. Each of them is trying to out-do the other in their field of expertise. Luckily, this means they are rapidly learning new skills in order to compete with one another.", 
     "weight": 1.0, 
     "buttons":[{"text": "Good for them.", "function": "randomSelect", "paramaters": ["0.15", "1", "loadEvent", "fr-1", "loadEvent", "fr-2"]},
-           {"text": "We don't need anything from them.", "function": "", "paramaters": []}]},
+           {"text": "We shouldn't encourage this.", "function": "", "paramaters": []}]},
     {"tag":"fr-1",
     "title": "Friendly Rivalry Turns Ugly", 
     "text": "It looks like the friendly rivalry between two of our crew members has turned sour. A viscous argument broke out while they were competing, and it looks like what had once been a friendly competition has turned into real animosity.", 

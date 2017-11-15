@@ -29,9 +29,13 @@ public class Person: Entity  {
 	public string profession;
 	public int[] skillLevels;
 	public List<string> firstNames = new List<string>();
-	public List<string> lastNames = new List<string> ();
-	public List<string> professions = new List<string> ();
+	public List<string> lastNames = new List<string>();
+	public List<string> professions = new List<string>();
+	public List<string> listOfTraits = new List<string>();
 	public Roles role;
+	public int maxHealth;
+	public int currentHealth;
+	public List<string> traits = new List<string>();
 	private CrewManager manager;
 	SpriteRenderer Body;
 
@@ -75,9 +79,21 @@ public class Person: Entity  {
 
 		int randomProfIndex = UnityEngine.Random.Range (0, professions.Count);
 
+		string traitsCurrentLine; // For looping through possible traits.
+		System.IO.StreamReader textListOfTraits = new System.IO.StreamReader("traits.txt");
+
+		while ((traitsCurrentLine = textListOfTraits.ReadLine ()) != null) {
+			listOfTraits.Add(traitsCurrentLine);
+		}
+
+		int randomTraitsIndex = UnityEngine.Random.Range (0, listOfTraits.Count);
+
 		this.crewName = firstNames[randomFirstIndex] + " " + lastNames[randomLastIndex];
 		this.profession = professions [randomProfIndex];
 		this.age = UnityEngine.Random.Range (25, 70).ToString ();
+		this.traits.Add (listOfTraits[randomTraitsIndex]);
+		this.maxHealth = 100;
+		this.currentHealth = 100;
 
 		skillLevels = new int[6];
 
@@ -161,6 +177,39 @@ public class Person: Entity  {
 			role = Roles.ENGINEER;
 		}
 
+		if (this.traits.Contains("Book Smart")) {
+			this.skillLevels[(int)Skills.SCIENCE] += 1;
+		}
+
+		if (this.traits.Contains("Deadeye")) {
+			this.skillLevels[(int)Skills.PERSONALCOMBAT] += 1;
+		}
+
+		if (this.traits.Contains ("Quick Loader")) {
+			this.skillLevels [(int)Skills.WEAPONS] += 1;
+		}
+
+		if (this.traits.Contains ("Ace")) {
+			this.skillLevels [(int)Skills.PILOTING] += 1;
+		}
+
+		if (this.traits.Contains ("Astrogation Expert")) {
+			this.skillLevels [(int)Skills.NAVIGATION] += 1;
+		}
+
+		if (this.traits.Contains ("Mechanically Inclined")) {
+			this.skillLevels [(int)Skills.ENGINEERING] += 1;
+		}
+
+		if (this.traits.Contains ("Hardy")) {
+			this.maxHealth = 120;
+			this.currentHealth = 120;
+		}
+
+		if (this.traits.Contains ("Fleet of Foot")) {
+			this.speed *= 1.2;
+		}
+			
 		// start idling
 		target = Ship.playerShip.map.getNewWanderTarget (transform.localPosition);
 	}
@@ -315,38 +364,38 @@ public class Person: Entity  {
 
 	public void improveSkill(string skill) {
 		if (skill == "weapons") {
-			if (this.weaponsLevel < 5) {
-				this.weaponsLevel += 1;
+			if (this.skillLevels[(int)Skills.WEAPONS] < 5) {
+				this.skillLevels[(int)Skills.WEAPONS] += 1;
 			}
 		}
 
 		if (skill == "pilot") {
-			if (this.pilotLevel < 5) {
-				this.pilotLevel += 1;
+			if (this.skillLevels[(int)Skills.PILOTING] < 5) {
+				this.skillLevels[(int)Skills.PILOTING] += 1;
 			}
 		}
 
 		if (skill == "engineer") {
-			if (this.engineerLevel < 5) {
-				this.engineerLevel += 1;
+			if (this.skillLevels[(int)Skills.ENGINEERING] < 5) {
+				this.skillLevels[(int)Skills.ENGINEERING] += 1;
 			}
 		}
 
 		if (skill == "science") {
-			if (this.scienceLevel < 5) {
-				this.scienceLevel += 1;
+			if (this.skillLevels[(int)Skills.SCIENCE] < 5) {
+				this.skillLevels[(int)Skills.SCIENCE] += 1;
 			}
 		}
 
 		if (skill == "navigation") {
-			if (this.navigationLevel < 5) {
-				this.navigationLevel += 1;
+			if (this.skillLevels[(int)Skills.NAVIGATION] < 5) {
+				this.skillLevels[(int)Skills.NAVIGATION] += 1;
 			}
 		}
 
 		if (skill == "personalCombat") {
-			if (this.personalCombatLevel < 5) {
-				this.personalCombatLevel += 1;
+			if (this.skillLevels[(int)Skills.PERSONALCOMBAT] < 5) {
+				this.skillLevels[(int)Skills.PERSONALCOMBAT] += 1;
 			}
 		}
 	}

@@ -2,7 +2,7 @@
     [{"tag":"as-0",
     "title": "Abandoned Ship Spotted", 
     "text": "Captain, our sensors are picking up an abandoned ship orbiting a nearby satellite. It isn’t sending out any distress signals. Should we investigate?”", 
-    "weight": 1.0, 
+    "weight": 0.5, 
     "buttons":[{"text": "Let's see what we can find.", "function": "randomSelect", "paramaters": ["0.95", "1", "loadEvent", "as-1", "loadEvent", "as-2"]},
            {"text": "It's not worth the risk.", "function": "", "paramaters": []}]},
     {"tag":"as-1",
