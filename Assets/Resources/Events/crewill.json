@@ -1,0 +1,7 @@
+{"events":
+    [{"tag":"ci-0",
+    "title": "Crew Member Falls Ill",
+    "text": "One of our crew members has fallen ill. At the moment, they're still able to work.",
+    "weight": 20.0,
+    "buttons":[{"text": "Hopefully it's nothing serious.", "function": "assignTrait", "paramaters": ["Ill"]}]}
+    ]}

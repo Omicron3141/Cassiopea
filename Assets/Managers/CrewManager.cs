@@ -245,8 +245,16 @@ public class CrewManager: MonoBehaviour {
 			text += " Weapons Level: " + selectedCrew.skillLevels[(int)Skills.WEAPONS] + "\n";
 			text += " Personal Combat Level: " + selectedCrew.skillLevels [(int)Skills.PERSONALCOMBAT] + "\n";
 			text += " Traits: ";
+
+			int index = 0;
 			foreach (var eachTrait in selectedCrew.traits) {
 				text += eachTrait;
+
+				if (index != (selectedCrew.traits.Count - 1)) {
+					text += ", ";
+				}
+
+				index += 1;
 			}
 			text += "\n\n";
 			text += " Currently: " + selectedCrew.jobDesc() + "\n";

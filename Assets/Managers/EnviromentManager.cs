@@ -171,15 +171,28 @@ public class EnviromentManager: MonoBehaviour {
 
 				if (check == true) {
 					loadEvent (paramaters [2]);
-					print("2");
 					break;
 				} 
 
 				else {
 					loadEvent (paramaters [3]);
-					print ("3");
 					break;
 				}
+			case "checkForTrait":
+				bool traitCheck = checkForTrait (paramaters [0]);
+
+				if (traitCheck == true) {
+					loadEvent (paramaters [1]);
+					break;
+				} 
+
+				else {
+					loadEvent (paramaters [2]);
+					break;
+				}
+			case "assignTrait":
+				assignTrait (paramaters [0]);
+				break;
 		}
 	}
 
@@ -397,6 +410,30 @@ public class EnviromentManager: MonoBehaviour {
 		}
 
 		return returnBool;
+	}
+
+	bool checkForTrait(string trait) {
+		List<Person> currentCrew = CrewManager.instance.getCrewMembers();
+
+		bool returnBool = false;
+		int numOfTraits = 0;
+
+		for (int i = 0; i < currentCrew.Count; i++) {
+			numOfTraits = currentCrew [i].traits.Count;
+			for (int j = 0; j < numOfTraits; j++) {
+				if (currentCrew [i].traits [j] == trait) {
+					returnBool = true;
+					break;
+				}
+			}
+		}
+		return returnBool;
+	}
+
+	void assignTrait(string trait) {
+		List<Person> currentCrew = CrewManager.instance.getCrewMembers ();
+		int randomCrewIndex = UnityEngine.Random.Range (0, currentCrew.Count);
+		currentCrew [randomCrewIndex].traits.Add(trait);
 	}
 
 	public void endEvent(){

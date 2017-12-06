@@ -207,7 +207,46 @@ public class Person: Entity  {
 		}
 
 		if (this.traits.Contains ("Fleet of Foot")) {
-			this.speed *= 1.2;
+			this.speed *= (float) 1.2;
+		}
+
+		if (this.traits.Contains ("Poor Sense of Space")) {
+			this.skillLevels [(int)Skills.PILOTING] -= 1;
+		}
+
+		if (this.traits.Contains ("Mechanically Behind")) {
+			this.skillLevels [(int)Skills.ENGINEERING] -= 1;
+		}
+
+		if (this.traits.Contains ("Crippled Leg")) {
+			this.speed *= (float) 0.8;
+		}
+
+		if (this.traits.Contains ("Uneducated")) {
+			this.skillLevels [(int)Skills.SCIENCE] -= 1;
+		}
+
+		if (this.traits.Contains ("Weak Constitution")) {
+			this.maxHealth = 80;
+			this.currentHealth = 80;
+		}
+
+		if (this.traits.Contains ("No Galatic Knowledge")) {
+			this.skillLevels [(int)Skills.NAVIGATION] -= 1;
+		}
+
+		if (this.traits.Contains ("Poor Aim")) {
+			this.skillLevels [(int)Skills.PERSONALCOMBAT] -= 1;
+		}
+
+		if (this.traits.Contains ("Poor Tageting Skills")) {
+			this.skillLevels [(int)Skills.WEAPONS] -= 1;
+		}
+
+		if (this.traits.Contains ("Genius")) {
+			this.skillLevels [(int)Skills.SCIENCE] += 1;
+			this.skillLevels [(int)Skills.NAVIGATION] += 1;
+			this.skillLevels [(int)Skills.ENGINEERING] += 1;
 		}
 			
 		// start idling

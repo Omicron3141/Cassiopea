@@ -1,0 +1,17 @@
+{"events":
+    [{"tag":"sb-0",
+    "title": "Sickbay Temporarily Offline",
+    "text": "Captain, our sick bay just went offline. We're currently looking for the cause and trying to get it back online.",
+    "weight": 20.0,
+    "buttons":[{"text": "I hope no one is hurt by this.", "function": "checkForTrait", "paramaters": ["Ill", "sb-1", "sb-2"]}]},
+    {"tag":"sb-1",
+    "title": "Crew Member's Illness Spreads",
+    "text": "Our sick crew member's illness spread to others without access to the sickbay.",
+    "weight": 0.0,
+    "buttons":[{"text": "Damn it.", "function": "assignTrait", "paramaters": ["Ill"]}]},
+    {"tag":"sb-2",
+	"title": "Sickbay Back Online",
+    "text": "The sickbay is back online. It looks like no one needed it in the meantime.",
+    "weight": 0.0,
+    "buttons":[{"text": "At least there's something to be thankful for.", "function": "", "paramaters": []}]}
+    ]}
